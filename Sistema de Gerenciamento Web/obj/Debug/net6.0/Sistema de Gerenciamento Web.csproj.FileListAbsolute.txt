@@ -1,0 +1,78 @@
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\appsettings.Development.json
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\appsettings.json
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\efpt.config.json
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Sistema de Gerenciamento Web.staticwebassets.runtime.json
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Sistema de Gerenciamento Web.exe
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Sistema de Gerenciamento Web.deps.json
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Sistema de Gerenciamento Web.runtimeconfig.json
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Sistema de Gerenciamento Web.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Sistema de Gerenciamento Web.pdb
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Humanizer.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.UI.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Microsoft.Extensions.FileProviders.Embedded.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Microsoft.Identity.Client.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\System.Drawing.Common.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\System.Runtime.Caching.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\System.Security.Permissions.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\System.Windows.Extensions.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\obj\Debug\net6.0\Sistema de Gerenciamento Web.csproj.AssemblyReference.cache
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\obj\Debug\net6.0\Sistema de Gerenciamento Web.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\obj\Debug\net6.0\Sistema de Gerenciamento Web.AssemblyInfoInputs.cache
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\obj\Debug\net6.0\Sistema de Gerenciamento Web.AssemblyInfo.cs
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\obj\Debug\net6.0\Sistema de Gerenciamento Web.csproj.CoreCompileInputs.cache
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\obj\Debug\net6.0\Sistema de Gerenciamento Web.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\obj\Debug\net6.0\Sistema de Gerenciamento Web.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\obj\Debug\net6.0\Sistema de Gerenciamento Web.RazorAssemblyInfo.cache
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\obj\Debug\net6.0\Sistema de Gerenciamento Web.RazorAssemblyInfo.cs
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\obj\Debug\net6.0\staticwebassets.build.json
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\obj\Debug\net6.0\staticwebassets.development.json
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\obj\Debug\net6.0\scopedcss\bundle\Sistema de Gerenciamento Web.styles.css
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\obj\Debug\net6.0\scopedcss\projectbundle\Sistema de Gerenciamento Web.bundle.scp.css
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\obj\Debug\net6.0\Sistema de Gerenciamento Web.csproj.CopyComplete
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\obj\Debug\net6.0\Sistema de Gerenciamento Web.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\obj\Debug\net6.0\refint\Sistema de Gerenciamento Web.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\obj\Debug\net6.0\Sistema de Gerenciamento Web.pdb
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\obj\Debug\net6.0\Sistema de Gerenciamento Web.genruntimeconfig.cache
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\obj\Debug\net6.0\ref\Sistema de Gerenciamento Web.dll
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\obj\Debug\net6.0\staticwebassets\msbuild.Sistema de Gerenciamento Web.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\obj\Debug\net6.0\staticwebassets\msbuild.build.Sistema de Gerenciamento Web.props
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.Sistema de Gerenciamento Web.props
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.Sistema de Gerenciamento Web.props
+C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema de Gerenciamento Web\obj\Debug\net6.0\staticwebassets.pack.json
