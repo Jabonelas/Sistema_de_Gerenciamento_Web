@@ -38,8 +38,10 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Cadastros}/{action=CadastrarFornecedor}/{id?}");
-    //pattern: "{controller=Home}/{action=Index}/{id?}");
+//pattern: "{controller=Cadastros}/{action=teste}/{id?}");
+pattern: "{controller=Cadastros}/{action=AlterarProduto}/{id?}");
+
+//pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.Run();

@@ -101,14 +101,19 @@
                                     <span asp-validation-for="registro.rg_razao_social" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-4">
+                                    
                                     <label class="form-label">E-mail para envio XML</label>
-                                    <input asp-for="registro.rg_email_xml" type="text" class="form-control" id="email2" required>
-                                    <span asp-validation-for="registro.rg_email_xml" class="text-danger"></span>
-                                    <div class="invalid-tooltip">
-                                        Campo Obrigatório.
-                                    </div>
-                                    <div class="alert-info" style="position: absolute; background-color:rgba(250,137,107,.9); color: #fff; padding: .25rem .5rem; font-size: .875rem; border-radius: .25rem; pointer-events: none; display: none;" id="verificacaoEmail2">
-                                        E-mail informado inválido.
+                                    <div class="form-icon">
+                                        <input type="email" asp-for="registro.rg_email_xml" class="form-control form-control-icon"
+                                               id="email2" placeholder="exemplo@gmail.com" required>
+                                        <i class="ri-mail-unread-line"></i>
+                                        <span asp-validation-for="registro.rg_email_xml" class="text-danger"></span>
+                                        <div class="invalid-tooltip">
+                                            Campo Obrigatório.
+                                        </div>
+                                        <div class="alert-info" style="position: absolute; background-color:rgba(250,137,107,.9); color: #fff; padding: .25rem .5rem; font-size: .875rem; border-radius: .25rem; pointer-events: none; display: none;" id="verificacaoEmail2">
+                                            E-mail informado inválido.
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -222,14 +227,17 @@
                     <div class="live-preview">
                         <div class="row g-3">
                             <div class="col-md-6">
+                                
                                 <label class="form-label">E-mail</label>
-                                <input asp-for="registro.rg_email" type="text" class="form-control" id="email1">
-                                <div class="alert-info" style="position: absolute; background-color: rgba(250,137,107,.9); color: #fff; padding: .25rem .5rem; font-size: .875rem; border-radius: .25rem; pointer-events: none; display: none;" id="verificacaoEmail1">
-                                    E-mail informado inválido.
+                                <div class="form-icon">
+                                    <input asp-for="registro.rg_email" type="email" class="form-control form-control-icon"
+                                           id="email1" placeholder="exemplo@gmail.com" required>
+                                    <i class="ri-mail-unread-line"></i>
+                                    <div class="alert-info" style="position: absolute; background-color: rgba(250,137,107,.9); color: #fff; padding: .25rem .5rem; font-size: .875rem; border-radius: .25rem; pointer-events: none; display: none;" id="verificacaoEmail1">
+                                        E-mail informado inválido.
+                                    </div>
                                 </div>
-                                @*<div class="invalid-tooltip">
-                                Campo Obrigatório.
-                                </div>*@
+                                
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label">Celular</label>
@@ -566,7 +574,7 @@
     @*Verifcação de CPF*@
     <script>
         $(function () {
-            $('#cleave-cpf').blur(function () {
+            $('#cleave-cpf').on('input', function () {
                 var cpf = $(this).val();
                 $.ajax({
                     url: '@Url.Action("VerificacaoExistenciaCPF", "Cadastros")',
@@ -613,7 +621,7 @@
         });
     </script>
 
-    @*Validação de E-mail*@
+    @*Validação de E-mail1*@
     <script>
         $(function () {
             $('#email1').blur(function () {
@@ -638,7 +646,7 @@
         });
     </script>
 
-    @*Validação de E-mail*@
+    @*Validação de E-mail2*@
     <script>
         $(function () {
             $('#email2').blur(function () {

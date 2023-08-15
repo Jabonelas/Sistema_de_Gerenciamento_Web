@@ -137,6 +137,50 @@ if (document.querySelector("#cleave-dinheiro")) {
     });
 }
 
+if (document.querySelector("#cleave-dinheiro1")) {
+    var cleavePrefix = new Cleave("#cleave-dinheiro1", {
+        prefix: "R$ ",
+        numeral: true,
+        numeralDecimalScale: 2,
+        delimiter: ".",
+        numeralDecimalMark: ",",
+        onValueChanged: function (e) {
+            var value = e.target.value.replace(/^R\$\s/g, ""); // remove o prefixo "R$ "
+            value = value.replace(/\./g, ""); // remove os pontos
+            value = value.replace(/[^0-9,]/g, ""); // remove tudo que não for número ou vírgula
+            var parts = value.split(",");
+            var integerPart = parts[0] || "0";
+            var decimalPart = parts[1] || "";
+            integerPart = integerPart.replace(/^0+/g, ""); // remove zeros à esquerda
+            decimalPart = decimalPart.padEnd(2, "0").substring(0, 2); // completa com zeros à direita e limita a duas casas decimais
+            value = integerPart + (decimalPart ? "," + decimalPart : ""); // adiciona a vírgula, se houver casas decimais
+            e.target.value = "R$ " + value; // adiciona o prefixo "R$ " e atualiza o valor do campo
+        },
+    });
+}
+
+if (document.querySelector("#cleave-dinheiro2")) {
+    var cleavePrefix = new Cleave("#cleave-dinheiro2", {
+        numeral: true,
+        numeralDecimalScale: 2,
+        delimiter: ".",
+        numeralDecimalMark: ",",
+        suffix: "%",
+        onValueChanged: function (e) {
+            var value = e.target.value.replace("%", ""); // remove o prefixo "R$ "
+            value = value.replace(/\./g, ""); // remove os pontos
+            value = value.replace(/[^0-9,]/g, ""); // remove tudo que não for número ou vírgula
+            var parts = value.split(",");
+            var integerPart = parts[0] || "0";
+            var decimalPart = parts[1] || "";
+            integerPart = integerPart.replace(/^0+/g, ""); // remove zeros à esquerda
+            decimalPart = decimalPart.padEnd(2, "0").substring(0, 2); // completa com zeros à direita e limita a duas casas decimais
+            value = integerPart + (decimalPart ? "," + decimalPart : ""); // adiciona a vírgula, se houver casas decimais
+            e.target.value = value + " %"; // adiciona o prefixo "R$ " e atualiza o valor do campo
+        },
+    });
+}
+
 if (document.querySelector("#cleave-cnpj")) {
     var cleaveDate = new Cleave('#cleave-cnpj', {
         delimiters: ['.', '.', '/', '-'],

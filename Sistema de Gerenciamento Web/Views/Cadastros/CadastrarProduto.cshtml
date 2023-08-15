@@ -1,0 +1,360 @@
+﻿@model Sistema_de_Gerenciamento_Web.Models.tb_produto
+@{
+    ViewBag.Title = "Cadastrar Produtos";
+    ViewBag.pTitle = "Cadastrar Produtos";
+    ViewBag.pageTitle = "Produtos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var data = DateTime.Now;
+
+    var listaFornecedores = ViewData["FornecedoresCadastrados"] as List<tb_registro>;
+
+    var listaGrupos = ViewData["GruposCadastrados"] as List<tb_grupo>;
+}
+
+@if (TempData["mensagemSucesso"] != null)
+{
+    <div class="alert alert-success" role="alert">
+
+        @TempData["mensagemSucesso"]
+    </div>
+}
+
+@if (TempData["mensagemFalha"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+
+        @TempData["mensagemFalha"]
+    </div>
+}
+
+<form class="needs-validation form-group" asp-controller="Cadastros" asp-action="CadastrarProduto" onsubmit="removerSimboloR$Porcentagem()" method="post" novalidate>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header align-items-center d-flex">
+                    <h4 class="card-title mb-0 flex-grow-1">Dados Produtos</h4>
+                </div>
+                <div class="card-body">
+                    <div class="live-preview">
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <label class="form-label">Código Produto</label>
+                                <input asp-for="pd_codigo" type="number" class="form-control" id="verificacaoCodigoProduto" required>
+                                <span asp-validation-for="pd_codigo" class="text-danger"></span>
+                                <div class="invalid-tooltip">
+                                    Campo Obrigatório.
+                                </div>
+                                <div class="alert-info" id="verificacaoCodigoProdutoMensagem" style="position: absolute; background-color: rgba(250,137,107,.9); color: #fff; padding: .25rem .5rem; font-size: .875rem; border-radius: .25rem; pointer-events: none; display: none;">
+                                    Código de Produto já cadastrado.
+                                </div>
+
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Código Barras</label>
+                                <input asp-for="pd_codigo_barras" type="text" class="form-control" id="verificacaoCodigoBarras" required>
+                                <span asp-validation-for="pd_codigo_barras" class="text-danger"></span>
+                                <div class="invalid-tooltip">
+                                    Campo Obrigatório.
+                                </div>
+                                <div class="alert-info" id="verificacaoCodigoBarrasMensagem" style="position: absolute; background-color: rgba(250,137,107,.9); color: #fff; padding: .25rem .5rem; font-size: .875rem; border-radius: .25rem; pointer-events: none; display: none;">
+                                    Código de Barras já cadastrado.
+                                </div>
+
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Finalidade</label>
+                                <select asp-for="pd_finalidade" class="form-select" required>
+                                    <option selected disabled value="">Selecione...</option>
+                                    <option>Venda</option>
+                                    <option>Uso/Consumo</option>
+                                    <option>Matéria Prima</option>
+                                </select>
+                                <span asp-validation-for="pd_finalidade" class="text-danger"></span>
+                                <div class="invalid-tooltip">
+                                    Campo Obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Grupo</label>
+                                <select asp-for="fk_grupo" class="form-select" required>
+                                    <option selected disabled value="">Selecione...</option>
+                                    @foreach (var item in listaGrupos)
+                                    {
+                                        <option value="@item.id_grupo">Grupo: @item.gp_nome_grupo - Agrupador: @item.gp_nome_agrupador </option>
+                                    }
+                                </select>
+                                <span asp-validation-for="fk_grupo" class="text-danger"></span>
+                                <div class="invalid-tooltip">
+                                    Campo Obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Nome</label>
+                                <input asp-for="pd_nome" type="text" class="form-control" required>
+                                <span asp-validation-for="pd_nome" class="text-danger"></span>
+                                <div class="invalid-tooltip">
+                                    Campo Obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Fornecedor</label>
+                                <select asp-for="fk_registro_forncedor" class="form-select" required>
+                                    <option selected disabled value="">Selecione...</option>
+                                    @foreach (var item in listaFornecedores)
+                                    {
+                                        <option value="@item.id_registro"> @item.id_registro - @item.rg_nome_fantasia - CNPJ: @item.rg_cnpj</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="fk_registro_forncedor" class="text-danger"></span>
+                                <div class="invalid-tooltip">
+                                    Campo Obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Tipo Unidade</label>
+                                <input asp-for="pd_tipo_unidade" type="text" class="form-control" placeholder="Ex.: Peça,Un,Kg" required>
+                                <span asp-validation-for="pd_tipo_unidade" class="text-danger"></span>
+                                <div class="invalid-tooltip">
+                                    Campo Obrigatório.
+                                </div>
+                                <div class="alert-info" style="position: absolute; background-color:rgba(250,137,107,.9); color: #fff; padding: .25rem .5rem; font-size: .875rem; border-radius: .25rem; pointer-events: none; display: none;" id="verificacaoEmail2">
+                                    E-mail informado inválido.
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Tipo Produto</label>
+                                <select asp-for="pd_tipo_produto" class="form-select" required>
+                                    <option selected disabled value="">Selecione...</option>
+                                    <option>Normal</option>
+                                    <option>Composição</option>
+                                    <option>Grade</option>
+                                </select>
+                                <span asp-validation-for="pd_tipo_produto" class="text-danger"></span>
+                                <div class="invalid-tooltip">
+                                    Campo Obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Custos</label>
+                                <input asp-for="pd_custo" type="text" class="form-control" id="cleave-dinheiro1" required>
+                                <span asp-validation-for="pd_custo" class="text-danger"></span>
+                                <div class="invalid-tooltip">
+                                    Campo Obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Margem de Lucro</label>
+                                <input asp-for="pd_margem" type="text" class="form-control" placeholder="0,00%" id="cleave-porcentagem" maxlength="6" oninput="formatarPorcentagem(this)" required>
+                                <span asp-validation-for="pd_margem" class="text-danger"></span>
+                                <div class="invalid-tooltip">
+                                    Campo Obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Preço Venda</label>
+                                <input asp-for="pd_preco" type="text" class="form-control" id="cleave-dinheiro" required>
+                                <span asp-validation-for="pd_preco" class="text-danger"></span>
+                                <div class="invalid-tooltip">
+                                    Campo Obrigatório.
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Estoque Mínimo</label>
+                                <input asp-for="pd_estoque_minimo" type="number" class="form-control" placeholder="0" required>
+                                <span asp-validation-for="pd_estoque_minimo" class="text-danger"></span>
+                                <div class="invalid-tooltip">
+                                    Campo Obrigatório.
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 position-relative">
+                                <label class="form-label">Observações</label>
+                                <textarea asp-for="pd_observacoes" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <button class="btn btn-primary" type="submit">Cadastrar</button>
+    </div>
+    <br />
+</form>
+@section scripts{
+    <!-- prismjs plugin -->
+    <script src="~/assets/libs/prismjs/prism.js"></script>
+    <script src="~/assets/js/pages/form-validation.init.js"></script>
+    <script src="~/assets/js/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.0.2/cleave.min.js"></script>
+    <script src="~/js/InputMasked.js"></script>
+
+
+    @*Não deixa digitar numeros *@
+    <script>
+        if (document.querySelector("#cleave-nome")) {
+            var input = document.querySelector("#cleave-nome");
+            input.addEventListener("keydown", function (event) {
+                if (event.key >= "0" && event.key <= "9") {
+                    event.preventDefault();
+                }
+            });
+        }
+    </script>
+
+    @*Calculando preço*@
+    <script>
+        $(function () {
+            $('#cleave-dinheiro1').blur(function () {
+                var custo = $(this).val();
+
+                $('#cleave-porcentagem').on('input', function () {
+
+                    var porcentagem = $(this).val();
+
+                    if (porcentagem != "" && custo != "R$ ") {
+
+                        let custoPuro = parseFloat(custo.replace("R$", "").replace(",", "."));
+
+                        let preco = (parseFloat(porcentagem.replace("%", "").replace(",", ".")) * custoPuro) / 100;
+
+                        let valorFinal = (preco + custoPuro).toFixed(2);
+
+                        $("#cleave-dinheiro").val(`R$ ${valorFinal}`);
+                    }
+                });
+
+
+                $('#cleave-dinheiro').on('input', function () {
+                    var preco = $(this).val();
+
+                    if (preco != "R$ " && custo != "R$ ") {
+
+                        let precoPuro = parseFloat(preco.replace("R$", "").replace(",", "."));
+                        let custoPuro = parseFloat(custo.replace("R$", "").replace(",", "."));
+
+                        let porcentagem = (precoPuro * 100) / custoPuro;
+                        let valorPorcentagem = porcentagem.toFixed(2);
+
+                        $("#cleave-porcentagem").val(`${porcentagem - 100}%`);
+                    }
+                });
+
+            });
+        });
+    </script>
+
+
+    @*Formatando Porcentagem*@
+    <script>
+
+        function formatarPorcentagem(input) {
+            var valor = input.value;
+            var valorFormatado = '';
+
+            if (valor !== '') {
+                valor = valor.replace(/[^0-9.,]/g, ''); // Remover caracteres não numéricos, exceto ponto e vírgula
+
+                var partes = valor.split('.');
+                var parteInteira = partes[0];
+                var parteDecimal = partes[1] || '';
+
+                // Limitar a parte decimal a 2 dígitos
+                if (parteDecimal.length > 2) {
+                    parteDecimal = parteDecimal.slice(0, 2);
+                }
+
+                valorFormatado = parteInteira + (parteDecimal !== '' ? '.' + parteDecimal : '');
+                valorFormatado += '%';
+
+            }
+
+            input.value = valorFormatado;
+        }
+
+
+
+    </script>
+
+
+    @*Remover o simbolo de R$  e % no momento do input*@
+    <script>
+        function removerSimboloR$Porcentagem() {
+
+            var input = document.getElementById("cleave-dinheiro");
+            var valorSemSimbolo = input.value.replace(/R\$|\,/g, "").trim();
+            input.value = valorSemSimbolo;
+
+            var input1 = document.getElementById("cleave-dinheiro1");
+            var valorSemSimbolo = input1.value.replace(/R\$|\,/g, "").trim();
+            input1.value = valorSemSimbolo;
+
+
+            var input2 = document.getElementById("cleave-porcentagem");
+            var valorSemSimbolo = input2.value.replace("%", "").trim();
+            input2.value = valorSemSimbolo;
+
+        }
+    </script>
+
+
+    @*Verifcação de Codigo de Barras*@
+    <script>
+        $(function () {
+            $('#verificacaoCodigoBarras').blur(function () {
+                var codigoBarras = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("VerificacaoExistenciaCodigoBarras", "Cadastros")',
+                    type: 'POST',
+                    data: { _codigoBarras: codigoBarras },
+                    success: function (result) {
+                        if (result == false) {
+
+                            $('#verificacaoCodigoBarrasMensagem').hide();
+
+                            console.log("barras1")
+
+                        } else {
+                            console.log("barras2")
+
+                            $('#verificacaoCodigoBarrasMensagem').show();
+                            $('#verificacaoCodigoBarras').focus();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+
+    @*Verifcação de Codigo de Produto*@
+    <script>
+        $(function () {
+            $('#verificacaoCodigoProduto').blur(function () {
+                var codigoProduto = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("VerificacaoExistenciaCodigoProduto", "Cadastros")',
+                    type: 'POST',
+                    data: { _codigoProduto: codigoProduto },
+                    success: function (result) {
+                        if (result == false) {
+
+                            $('#verificacaoCodigoProdutoMensagem').hide();
+
+                        } else {
+
+                            $('#verificacaoCodigoProdutoMensagem').show();
+                            $('#verificacaoCodigoProduto').focus();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+    }

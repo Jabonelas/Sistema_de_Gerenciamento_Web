@@ -37,7 +37,6 @@ namespace Sistema_de_Gerenciamento_Web.Models
         public decimal pd_margem { get; set; }
         [Column(TypeName = "decimal(10, 2)")]
         public decimal pd_preco { get; set; }
-        [Required]
         [StringLength(255)]
         [Unicode(false)]
         public string pd_observacoes { get; set; }

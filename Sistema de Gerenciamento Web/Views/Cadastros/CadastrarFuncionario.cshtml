@@ -1,0 +1,683 @@
+﻿@{
+    ViewBag.Title = "Cadastrar Funcionário";
+    ViewBag.pTitle = "Cadastrar Funcionário";
+    ViewBag.pageTitle = "Funcionário";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Sistema_de_Gerenciamento_Web.Models.ViewModel.CadastroViewModel
+
+@{
+    var data = DateTime.Now;
+}
+
+
+@if (TempData["mensagemSucesso"] != null)
+{
+
+    <div class="alert alert-success" role="alert">
+
+        @TempData["mensagemSucesso"]
+    </div>
+}
+
+
+@if (TempData["mensagemFalha"] != null)
+{
+
+    <div class="alert alert-danger" role="alert">
+
+        @TempData["mensagemFalha"]
+    </div>
+}
+
+
+<form class="needs-validation form-group" asp-controller="Cadastros" asp-action="CadastrarFuncionario" method="post" novalidate>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header align-items-center d-flex">
+                    <h4 class="card-title mb-0 flex-grow-1">Tipo Funcionário</h4>
+                </div>
+                <div class="card-body">
+                    <div class="live-preview">
+                        <div class="row g-3">
+                            <div class="col-md-2">
+                                <label class="form-label">Tipo Pessoa</label>
+                                <select asp-for="registro.rg_categoria" class="form-select" id="selecaoTipoPessoa" required>
+                                    <option selected disabled value="">Selecione...</option>
+                                    <option>Pessoa Física</option>
+                                    <option>Pessoa Jurídica</option>
+                                </select>
+                                <span asp-validation-for="registro.rg_categoria" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Data/Horário de Cadastro</label>
+                                <input asp-for="registro.rg_data_cadastro" readonly="" value="@data" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Pessoa Juridica*@
+    <fieldset id="tipoPessoaJuridica" style="display:none;color: rgb(73, 80,87);">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        <h4 class="card-title mb-0 flex-grow-1">Dados Funcionário</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="live-preview">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Nome Fantasia</label>
+                                    <input asp-for="registro.rg_nome_fantasia" type="text" class="form-control" required>
+                                    <span asp-validation-for="registro.rg_nome_fantasia" class="text-danger"></span>
+                                    <div class="invalid-tooltip">
+                                        Campo Obrigatório.
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">CNPJ</label>
+                                    <input asp-for="registro.rg_cnpj" type="text" class="form-control" id="cleave-cnpj" required>
+                                    <span asp-validation-for="registro.rg_cnpj" class="text-danger"></span>
+                                    <div class="invalid-tooltip">
+                                        Campo Obrigatório.
+                                    </div>
+                                    <div class="alert-info" id="validacaoCNPJ" style="position: absolute; background-color: rgba(250,137,107,.9); color: #fff; padding: .25rem .5rem; font-size: .875rem; border-radius: .25rem; pointer-events: none; display: none;">
+                                        CNPJ informado inválido.
+                                    </div>
+                                    <div class="alert-info" id="verificacaoCNPJ" style="position: absolute; background-color: rgba(250,137,107,.9); color: #fff; padding: .25rem .5rem; font-size: .875rem; border-radius: .25rem; pointer-events: none; display: none;">
+                                        CNPJ já cadastrado.
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Razão Social</label>
+                                    <input asp-for="registro.rg_razao_social" type="text" class="form-control">
+                                    <span asp-validation-for="registro.rg_razao_social" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">E-mail para envio XML</label>
+
+                                    <div class="form-icon">
+                                        <input asp-for="registro.rg_email_xml" type="email" class="form-control form-control-icon"
+                                               id="email2" placeholder="exemplo@gmail.com" required>
+                                        <i class="ri-mail-unread-line"></i>
+
+                                        @*<input asp-for="registro.rg_email_xml" type="text" class="form-control" id="email2" required>*@
+                                        <span asp-validation-for="registro.rg_email_xml" class="text-danger"></span>
+                                        <div class="invalid-tooltip">
+                                            Campo Obrigatório.
+                                        </div>
+                                        <div class="alert-info" style="position: absolute; background-color:rgba(250,137,107,.9); color: #fff; padding: .25rem .5rem; font-size: .875rem; border-radius: .25rem; pointer-events: none; display: none;" id="verificacaoEmail2">
+                                            E-mail informado inválido.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Inscrição Estadual</label>
+                                    <input asp-for="registro.rg_inscricao_estadual" type="text" class="form-control" required>
+                                    <span asp-validation-for="registro.rg_inscricao_estadual" class="text-danger"></span>
+                                    <div class="invalid-tooltip">
+                                        Campo Obrigatório.
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Inscrição Municipal</label>
+                                    <input asp-for="registro.rg_inscricao_municipal" type="text" class="form-control" required>
+                                    <span asp-validation-for="registro.rg_inscricao_municipal" class="text-danger"></span>
+                                    <div class="invalid-tooltip">
+                                        Campo Obrigatório.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </fieldset>
+
+    @*Pessoa Fisica*@
+    <fieldset id="tipoPessoaFisica" style="display:none;color: rgb(73, 80,87);">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        <h4 class="card-title mb-0 flex-grow-1">Dados Funcionário</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="live-preview">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Nome</label>
+                                    <input asp-for="registro.rg_nome" type="text" class="form-control" id="cleave-nome" required>
+                                    <span asp-validation-for="registro.rg_nome" class="text-danger"></span>
+                                    <div class="invalid-tooltip">
+                                        Campo Obrigatório.
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">CPF</label>
+                                    <input asp-for="registro.rg_cpf" type="text" class="form-control" id="cleave-cpf" required>
+                                    <span asp-validation-for="registro.rg_cpf" class="text-danger"></span>
+                                    <div class="invalid-tooltip">
+                                        Campo Obrigatório.
+                                    </div>
+                                    <div class="alert-info" id="verificacaoCPF" style="position: absolute; background-color: rgba(250,137,107,.9); color: #fff; padding: .25rem .5rem; font-size: .875rem; border-radius: .25rem; pointer-events: none; display: none;">
+                                        CPF já cadastrado.
+                                    </div>
+                                    <div class="alert-info" id="validacaoCPF" style="position: absolute; background-color: rgba(250,137,107,.9); color: #fff; padding: .25rem .5rem; font-size: .875rem; border-radius: .25rem; pointer-events: none; display: none;">
+                                        CPF informado inválido.
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">RG</label>
+                                    <input asp-for="registro.rg_rg" type="text" class="form-control" id="cleave-rg">
+                                    <div class="invalid-tooltip" id="verificacaoRG">
+                                        RG informado inválido.
+                                    </div>
+                                    @*<div class="invalid-tooltip">
+                                    Campo Obrigatório.
+                                    </div>*@
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Data Nascimento</label>
+                                    <input asp-for="registro.rg_data_nascimento" type="text" class="form-control" maxlength="10" id="cleave-date" required>
+                                    <span asp-validation-for="registro.rg_data_nascimento" class="text-danger"></span>
+                                    <div class="invalid-tooltip">
+                                        Campo Obrigatório.
+                                    </div>
+
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Sexo</label>
+                                    <select asp-for="registro.rg_sexo" class="form-select" required>
+                                        <span asp-validation-for="registro.rg_sexo" class="text-danger"></span>
+                                        <option selected disabled value="">Selecione...</option>
+                                        <option>Masculino</option>
+                                        <option>Femenino</option>
+                                    </select>
+                                    <div class="invalid-tooltip">
+                                        Campo Obrigatório.
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </fieldset>
+
+
+    @*Contatos*@
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header align-items-center d-flex">
+                    <h4 class="card-title mb-0 flex-grow-1">Contatos</h4>
+                </div>
+                <div class="card-body">
+                    <div class="live-preview">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">E-mail</label>
+                                <div class="form-icon">
+                                    <input asp-for="registro.rg_email" type="email" class="form-control form-control-icon"
+                                           id="email1" placeholder="exemplo@gmail.com" required>
+                                    <i class="ri-mail-unread-line"></i>
+                                    <div class="alert-info" style="position: absolute; background-color: rgba(250,137,107,.9); color: #fff; padding: .25rem .5rem; font-size: .875rem; border-radius: .25rem; pointer-events: none; display: none;" id="verificacaoEmail1">
+                                        E-mail informado inválido.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Celular</label>
+                        <input asp-for="registro.rg_celular" type="text" class="form-control" id="cleave-celular">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Telefone Fixo</label>
+                        <div class="input-group">
+                            <input asp-for="registro.rg_telefone_fixo" type="text" class="form-control" id="cleave-telefone">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="row">
+        @*Endereco*@
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header align-items-center d-flex">
+                    <h4 class="card-title mb-0 flex-grow-1">Endereço</h4>
+                    <div class="flex-shrink-0"></div>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3 needs-validation" novalidate>
+                        <div class="col-md-2">
+                            <label class="form-label">Tipo</label>
+                            <select asp-for="endereco.ed_tipo" class="form-select" required>
+                                <option selected disabled value="">Selecione...</option>
+                                <option>Comercial</option>
+                                <option>Residencial</option>
+                            </select>
+                            <span asp-validation-for="endereco.ed_tipo" class="text-danger"></span>
+                            <div class="invalid-tooltip">
+                                Campo Obrigatório.
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">CEP</label>
+                            <div class="input-group">
+                                <input asp-for="endereco.ed_cep" type="text"
+                                       class="form-control"
+                                       id="cleave-cep1">
+                                <img src="~/assets/libs/feather-icons/icons/search.svg"
+                                     type="submit"
+                                     class="btn btn-primary"
+                                     id="passarCEP">
+                                <div class="alert-info" style="position: absolute; background-color: rgba(250,137,107,.9); color: #fff; padding: .25rem .5rem; font-size: .875rem; border-radius: .25rem; pointer-events: none; display: none;" id="cepValido">
+                                    CEP informado inválido.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Estado</label>
+                            <select asp-for="endereco.ed_estado" class="form-select" id="cleave-estado" required>
+                                <option selected disabled value="">Selecione...</option>
+                                <option>Acre (AC)</option>
+                                <option>Alagoas (AL)</option>
+                                <option>Amapá (AP)</option>
+                                <option>Amazonas (AM)</option>
+                                <option>Bahia (BA)</option>
+                                <option>Ceará (CE)</option>
+                                <option>Distrito Federal (DF)</option>
+                                <option>Espírito Santo (ES)</option>
+                                <option>Goiás (GO)</option>
+                                <option>Maranhão (MA)</option>
+                                <option>Mato Grosso (MT)</option>
+                                <option>Mato Grosso do Sul (MS)</option>
+                                <option>Minas Gerais (MG)</option>
+                                <option>Pará (PA)</option>
+                                <option>Paraíba (PB)</option>
+                                <option>Paraná (PR)</option>
+                                <option>Pernambuco (PE)</option>
+                                <option>Piauí (PI)</option>
+                                <option>Rio de Janeiro (RJ)</option>
+                                <option>Rio Grande do Norte (RN)</option>
+                                <option>Rio Grande do Sul (RS)</option>
+                                <option>Rondônia (RO)</option>
+                                <option>Roraima (RR)</option>
+                                <option>Santa Catarina (SC)</option>
+                                <option>São Paulo (SP)</option>
+                                <option>Sergipe (SE)</option>
+                                <option>Tocantins (TO)</option>
+                            </select>
+                            <span asp-validation-for="endereco.ed_estado" class="text-danger"></span>
+                            <div class="invalid-tooltip">
+                                Campo Obrigatório.
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">Cidade</label>
+                            <div class="input-group has-validation">
+                                <input asp-for="endereco.ed_cidade" type="text" class="form-control" id="cleave-cidade" aria-describedby="inputGroupPrepend" required>
+                                <span asp-validation-for="endereco.ed_cidade" class="text-danger"></span>
+                                <div class="invalid-tooltip">
+                                    Campo Obrigatório.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Bairro</label>
+                            <input asp-for="endereco.ed_bairro" type="text" class="form-control" id="cleave-bairro" required>
+                            <span asp-validation-for="endereco.ed_bairro" class="text-danger"></span>
+                            <div class="invalid-tooltip">
+                                Campo Obrigatório.
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Logradouro</label>
+                            <input asp-for="endereco.ed_locgradouro" type="text" class="form-control" id="cleave-logradouro" required>
+                            <span asp-validation-for="endereco.ed_locgradouro" class="text-danger"></span>
+                            <div class="invalid-tooltip">
+                                Campo Obrigatório.
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">Numero</label>
+                            <input asp-for="endereco.ed_numero" type="text" class="form-control">
+                            @*
+                            <div class="valid-feedback">
+                            Looks good!
+                            </div>
+                            *@
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Complemento</label>
+                            <input asp-for="endereco.ed_complemento" type="text" class="form-control" id="cleave-complemento">
+                            @*
+                            <div class="invalid-feedback">
+                            Please provide a valid city.
+                            </div>
+                            *@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*Informacoes Financeiras*@
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header align-items-center d-flex">
+                        <h4 class="card-title mb-0 flex-grow-1">Informações Financeiras</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3 needs-validation" novalidate>
+                            <div class="col-md-12 position-relative">
+                                <label class="form-label">Observações</label>
+                                <textarea asp-for="registro.rg_observacoes" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <button class="btn btn-primary" type="submit">Cadastrar</button>
+    </div>
+    <br />
+</form>
+@section scripts{
+    <!-- prismjs plugin -->
+    <script src="~/assets/libs/prismjs/prism.js"></script>
+    <script src="~/assets/js/pages/form-validation.init.js"></script>
+    <script src="~/assets/js/app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.0.2/cleave.min.js"></script>
+    <script src="~/js/InputMasked.js"></script>
+
+    <!-- Setando Endereço com base no CEP -->
+    <script>
+        $(document).ready(function () {
+            var cepInput = $("#cleave-cep1");
+            $("#passarCEP").click(function () {
+                var cep = cepInput.val();
+                if (cep.length >= 9) {
+                    $.ajax({
+                        url: `/Cadastros/GetCep/${cep}`,
+                        method: "GET",
+                        success: (data) => {
+                            $("#cleave-estado").val(data.uf);
+                            $("input[id='cleave-cidade']").val(data.localidade);
+                            $("input[id='cleave-bairro']").val(data.bairro);
+                            $("input[id='cleave-logradouro']").val(data.logradouro);
+                            $("input[id='cleave-complemento']").val(data.complemento);
+                        },
+                        error: (error) => {
+                            console.error(error);
+                        }
+                    });
+                    $('#cepValido').hide();
+                } else if (cep.length > 0) {
+                    $('#cepValido').show();
+                } else if (cep.length == 0) {
+                    $('#cepValido').hide();
+                }
+            });
+        });
+    </script>
+
+    <!-- Verifica o tipo de cadastro para modelar a tela -->
+    <script>
+
+        function SelecionandoLayoutTipoPessoa() {
+
+            var tipoPessoa = $("#selecaoTipoPessoa").val();
+
+            //Desativa os campos de pessoa juridica que estao com o required
+            var fieldsetPessoaJuridica = document.querySelector("#tipoPessoaJuridica");
+            var fieldsetPessoaFisica = document.querySelector("#tipoPessoaFisica");
+
+            if (tipoPessoa == "Pessoa Física") {
+
+                //Desativa os campos de pessoa juridica que estao com o required
+                fieldsetPessoaJuridica.setAttribute("disabled", "disabled");
+                fieldsetPessoaFisica.removeAttribute("disabled");
+
+                $('#tipoPessoaFisica').show();
+                $('#tipoPessoaJuridica').hide();
+
+                return;
+
+            } else if (tipoPessoa == "Pessoa Jurídica") {
+
+                //Desativa os campos de pessoa juridica que estao com o required
+                fieldsetPessoaFisica.setAttribute("disabled", "disabled");
+                fieldsetPessoaJuridica.removeAttribute("disabled");
+
+                $('#tipoPessoaFisica').hide();
+                $('#tipoPessoaJuridica').show();
+
+                return;
+            }
+        }
+
+        $(document).ready(function () {
+            $("#selecaoTipoPessoa").change(function () {
+
+                SelecionandoLayoutTipoPessoa();
+
+            });
+
+            SelecionandoLayoutTipoPessoa();
+
+        });
+
+    </script>
+
+    @*Não deixa digitar numeros *@
+    <script>
+        if (document.querySelector("#cleave-nome")) {
+            var input = document.querySelector("#cleave-nome");
+            input.addEventListener("keydown", function (event) {
+                if (event.key >= "0" && event.key <= "9") {
+                    event.preventDefault();
+                }
+            });
+        }
+    </script>
+
+    @*Validação de CPF*@
+    <script>
+        $(function () {
+            $('#cleave-cpf').blur(function () {
+                var cpf = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("ValidarCPF", "Cadastros")',
+                    type: 'POST',
+                    data: { _cpf: cpf },
+                    success: function (result) {
+                        if (result == true) {
+
+                            $('#validacaoCPF').hide();
+
+                        } else {
+
+                            $('#validacaoCPF').show();
+                            $('#cleave-cpf').focus();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+    @*Verifcação de CPF*@
+    <script>
+        $(function () {
+            $('#cleave-cpf').blur(function () {
+                var cpf = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("VerificacaoExistenciaCPF", "Cadastros")',
+                    type: 'POST',
+                    data: { _cpf: cpf },
+                    success: function (result) {
+                        if (result == false) {
+
+                            $('#verificacaoCPF').hide();
+
+                        } else {
+
+                            $('#verificacaoCPF').show();
+                            $('#cleave-cpf').focus();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+    @*Validação de RG*@
+    <script>
+        $(function () {
+            $('#cleave-rg').blur(function () {
+                var rg = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("ValidarRG", "Cadastros")',
+                    type: 'POST',
+                    data: { _rg: rg },
+                    success: function (result) {
+                        if (result == true) {
+
+                            $('#verificacaoRG').hide();
+
+                        } else {
+
+                            $('#verificacaoRG').show();
+                            $('#cleave-rg').focus();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+    @*Validação de E-mail*@
+    <script>
+        $(function () {
+            $('#email1').blur(function () {
+                var email = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("ValidarEmail", "Cadastros")',
+                    type: 'POST',
+                    data: { _email: email },
+                    success: function (result) {
+                        if (result == true) {
+
+                            $('#verificacaoEmail1').hide();
+
+                        } else {
+
+                            $('#verificacaoEmail1').show();
+                            $('#email1').focus();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+    @*Validação de E-mail*@
+    <script>
+        $(function () {
+            $('#email2').blur(function () {
+                var email = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("ValidarEmail", "Cadastros")',
+                    type: 'POST',
+                    data: { _email: email },
+                    success: function (result) {
+                        if (result == true) {
+
+                            $('#verificacaoEmail2').hide();
+
+                        } else {
+
+                            $('#verificacaoEmail2').show();
+                            $('#email2').focus();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+    @*Validação de CNPJ*@
+    <script>
+        $(function () {
+            $('#cleave-cnpj').blur(function () {
+                var cnpj = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("ValidarCNPJ", "Cadastros")',
+                    type: 'POST',
+                    data: { _cnpj: cnpj },
+                    success: function (result) {
+                        if (result == true) {
+
+                            $('#validacaoCNPJ').hide();
+
+                        } else {
+
+                            $('#validacaoCNPJ').show();
+                            $('#cleave-cnpj').focus();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+    @*Verifcação de CNPJ*@
+    <script>
+        $(function () {
+            $('#cleave-cnpj').blur(function () {
+                var cnpj = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("VerificacaoExistenciaCNPJ", "Cadastros")',
+                    type: 'POST',
+                    data: { _cnpj: cnpj },
+                    success: function (result) {
+                        if (result == false) {
+
+                            $('#verificacaoCNPJ').hide();
+
+                        } else {
+
+                            $('#verificacaoCNPJ').show();
+                            $('#cleave-cnpj').focus();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+}
