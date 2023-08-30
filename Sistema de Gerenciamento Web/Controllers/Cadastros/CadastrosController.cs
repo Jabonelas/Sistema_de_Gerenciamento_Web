@@ -9,6 +9,7 @@ using Sistema_de_Gerenciamento_Web.Models;
 using Sistema_de_Gerenciamento_Web.Models.ViewModel;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient.DataClassification;
 
 namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
 {
@@ -92,43 +93,38 @@ namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
         [HttpGet]
         public IActionResult AlterarProduto()
         {
-            BuscarDadosProduto(1);
-
-            PreencherCampos();
-
+            idProduto = 0;
             return View();
+        }
+
+        private static int idProduto = 0;
+
+        [HttpGet]
+        public IActionResult AleterProdutoPegandoId(int _idProduto)
+        {
+            idProduto = _idProduto;
+
+            return View("AlterarProduto");
         }
 
         [HttpPost]
         public IActionResult AlterarProduto(string _nomeProduto)
         {
-            PreencherCampos();
-
             if (_nomeProduto != null)
             {
-                if (_nomeProduto.Contains("#") == false)
+                Dictionary<int, string> listaProduto = BuscarProdutosNome(_nomeProduto);
+
+                TempData["NomeProduto"] = null;
+                TempData["NomeProduto"] = listaProduto;
+
+                TempData["LetrasDigitadas"] = null;
+                TempData["LetrasDigitadas"] = _nomeProduto;
+
+                TempData["DadosProduto"] = null;
+
+                if (idProduto != 0)
                 {
-                    //List<string> listaProduto = BuscarProdutosNome(_nomeProduto);
-                    Dictionary<int, string> listaProduto = BuscarProdutosNome(_nomeProduto);
-
-                    TempData["NomeProduto"] = null;
-                    TempData["NomeProduto"] = listaProduto;
-
-                    TempData["LetrasDigitadas"] = null;
-                    TempData["LetrasDigitadas"] = _nomeProduto;
-
-                    BuscarDadosProduto(1);
-                }
-                else
-                {
-                    //tb_produto dadosProdutos = BuscarDadosProdutos(_nomeProduto.Replace("#", ""));
-
-                    //TempData["DadosProduto"] = null;
-                    //TempData["DadosProduto"] = dadosProdutos;
-
-                    BuscarDadosProduto(1);
-
-                    return RedirectToAction("AlterarProduto", "Cadastros");
+                    BuscarDadosProduto(idProduto);
                 }
             }
 
@@ -138,37 +134,26 @@ namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
         //[HttpPut]
         public IActionResult AlterarDadosProduto(tb_produto _dadosProduto)
         {
-            //PreencherCampos();
+            using (SistemaDeGerenciamento2_0Context contex = new SistemaDeGerenciamento2_0Context())
+            {
+                var dadoProduto = contex.tb_produto.FirstOrDefault(x => x.id_produto.Equals(_dadosProduto.id_produto));
 
-            //if (_nomeProduto != null)
-            //{
-            //    if (_nomeProduto.Contains("#") == false)
-            //    {
-            //        //List<string> listaProduto = BuscarProdutosNome(_nomeProduto);
-            //        Dictionary<int, string> listaProduto = BuscarProdutosNome(_nomeProduto);
+                dadoProduto.pd_codigo = _dadosProduto.pd_codigo;
+                dadoProduto.pd_finalidade = _dadosProduto.pd_finalidade;
+                dadoProduto.pd_nome = _dadosProduto.pd_nome;
+                dadoProduto.pd_estoque_minimo = _dadosProduto.pd_estoque_minimo;
+                dadoProduto.pd_custo = _dadosProduto.pd_custo;
+                dadoProduto.pd_margem = _dadosProduto.pd_margem;
+                dadoProduto.pd_preco = _dadosProduto.pd_preco;
+                dadoProduto.pd_observacoes = _dadosProduto.pd_observacoes;
+                dadoProduto.pd_codigo_barras = _dadosProduto.pd_codigo_barras;
+                dadoProduto.pd_tipo_produto = _dadosProduto.pd_tipo_produto;
+                dadoProduto.pd_tipo_unidade = _dadosProduto.pd_tipo_unidade;
 
-            //        TempData["NomeProduto"] = null;
-            //        TempData["NomeProduto"] = listaProduto;
+                contex.SaveChanges();
+            }
 
-            //        TempData["LetrasDigitadas"] = null;
-            //        TempData["LetrasDigitadas"] = _nomeProduto;
-
-            //        BuscarDadosProduto(1);
-            //    }
-            //    else
-            //    {
-            //        //tb_produto dadosProdutos = BuscarDadosProdutos(_nomeProduto.Replace("#", ""));
-
-            //        //TempData["DadosProduto"] = null;
-            //        //TempData["DadosProduto"] = dadosProdutos;
-
-            //        BuscarDadosProduto(1);
-
-            //        return RedirectToAction("AlterarProduto", "Cadastros");
-            //    }
-            //}
-
-            return View();
+            return View("AlterarProduto");
         }
 
         [HttpPost]
@@ -196,7 +181,7 @@ namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
                     using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
                     {
                         context.tb_produto.Add(_produto);
-                        //context.SaveChanges();
+                        context.SaveChanges();
                     }
                 }
                 catch (Exception)

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\israe\\source\\repos\\Sistema de Gerenciamento Web\\Sistema_de_Gerenciamento_Web\\Sistema de Gerenciamento Web\\Sistema de Gerenciamento Web.csproj": {}
+    "c:\\Users\\israe\\source\\repos\\Sistema de Gerenciamento Web\\Sistema_de_Gerenciamento_Web\\Sistema de Gerenciamento Web\\Sistema de Gerenciamento Web.csproj": {}
   },
   "projects": {
-    "C:\\Users\\israe\\source\\repos\\Sistema de Gerenciamento Web\\Sistema_de_Gerenciamento_Web\\Sistema de Gerenciamento Web\\Sistema de Gerenciamento Web.csproj": {
+    "c:\\Users\\israe\\source\\repos\\Sistema de Gerenciamento Web\\Sistema_de_Gerenciamento_Web\\Sistema de Gerenciamento Web\\Sistema de Gerenciamento Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\israe\\source\\repos\\Sistema de Gerenciamento Web\\Sistema_de_Gerenciamento_Web\\Sistema de Gerenciamento Web\\Sistema de Gerenciamento Web.csproj",
+        "projectUniqueName": "c:\\Users\\israe\\source\\repos\\Sistema de Gerenciamento Web\\Sistema_de_Gerenciamento_Web\\Sistema de Gerenciamento Web\\Sistema de Gerenciamento Web.csproj",
         "projectName": "Sistema de Gerenciamento Web",
-        "projectPath": "C:\\Users\\israe\\source\\repos\\Sistema de Gerenciamento Web\\Sistema_de_Gerenciamento_Web\\Sistema de Gerenciamento Web\\Sistema de Gerenciamento Web.csproj",
+        "projectPath": "c:\\Users\\israe\\source\\repos\\Sistema de Gerenciamento Web\\Sistema_de_Gerenciamento_Web\\Sistema de Gerenciamento Web\\Sistema de Gerenciamento Web.csproj",
         "packagesPath": "C:\\Users\\israe\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\israe\\source\\repos\\Sistema de Gerenciamento Web\\Sistema_de_Gerenciamento_Web\\Sistema de Gerenciamento Web\\obj\\",
+        "outputPath": "c:\\Users\\israe\\source\\repos\\Sistema de Gerenciamento Web\\Sistema_de_Gerenciamento_Web\\Sistema de Gerenciamento Web\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\DevExpress 22.2\\Components\\Offline Packages",
