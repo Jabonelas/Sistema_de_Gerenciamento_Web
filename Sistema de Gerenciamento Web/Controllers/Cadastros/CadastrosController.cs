@@ -10,15 +10,16 @@ using Sistema_de_Gerenciamento_Web.Models.ViewModel;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient.DataClassification;
+using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
 {
     public class CadastrosController : Controller
     {
-        public IActionResult teste()
-        {
-            return View();
-        }
+        private Dictionary<int, string> dicNomeProdutos = new Dictionary<int, string>();
+
+        private static int idProduto = 0;
 
         //public JsonResult BuscandoDadosProduto(string _nomeProduto)
         //{
@@ -30,6 +31,41 @@ namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
         //    return Json(listaProduto);
         //}
 
+        #region Produto
+
+        public IActionResult DeletarProduto(int _idProduto, string mensagemErro = null)
+        {
+            try
+            {
+                using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
+                {
+                    var produtoDeletar = context.tb_produto.FirstOrDefault(x => x.id_produto.Equals(_idProduto));
+
+                    if (produtoDeletar != null)
+                    {
+                        context.tb_produto.Remove(produtoDeletar);
+                        //context.SaveChanges();
+
+                        mensagemErro = "Realizado com sucesso.";
+                    }
+                    else
+                    {
+                        mensagemErro = "O produto não foi encontrado.";
+                    }
+                }
+
+                ViewBag.MensagemErro = mensagemErro;
+
+                return View("AlterarProduto");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.MensagemErro = "Ocorreu um erro ao deletar o produto.";
+
+                return View("AlterarProduto");
+            }
+        }
+
         public JsonResult BuscandoProdutoNome(string _nomeProduto)
         {
             if (_nomeProduto == null)
@@ -37,58 +73,75 @@ namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
                 return Json(null);
             }
 
-            Dictionary<int, string> listaProduto = BuscarProdutosNome(_nomeProduto);
-            //List<string> listaProduto = BuscarProdutosNome(_nomeProduto);
-
-            //ViewData["GruposCadastrados"] = null;
-            //ViewData["GruposCadastrados"] = listaProduto;
+            BuscarProdutosNome(_nomeProduto);
 
             TempData["NomeProduto"] = null;
-            TempData["NomeProduto"] = listaProduto;
+            TempData["NomeProduto"] = dicNomeProdutos;
 
-            return Json(listaProduto);
+            return Json(dicNomeProdutos);
         }
 
-        private Dictionary<int, string> BuscarProdutosNome(string _nomeProduto)
-        //private List<string> BuscarProdutosNome(string _nomeProduto)
+        private void BuscarProdutosNome(string _nomeProduto, string mensagemErro = null)
         {
-            using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
+            try
             {
-                var dadosProduto = context.tb_produto
-                    .Where(x => x.pd_nome
-                        .Contains(_nomeProduto))
-                    .Select(x => new tb_produto
-                    {
-                        pd_nome = x.pd_nome,
-                        id_produto = x.id_produto,
-                    }
-                    ).ToList();
-
-                //List<string> listaNomeProdutos = new List<string>();
-
-                Dictionary<int, string> dicNomeProdutos = new Dictionary<int, string>();
-
-                foreach (var item in dadosProduto)
+                using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
                 {
-                    dicNomeProdutos.Add(item.id_produto, item.pd_nome);
-                    //listaNomeProdutos.Add(item.pd_nome);
+                    var dadosProduto = context.tb_produto
+                        .Where(x => x.pd_nome
+                            .Contains(_nomeProduto))
+                        .Select(x => new tb_produto
+                        {
+                            pd_nome = x.pd_nome,
+                            id_produto = x.id_produto,
+                        }).ToList();
+
+                    dicNomeProdutos.Clear();
+
+                    if (dadosProduto != null)
+                    {
+                        foreach (var item in dadosProduto)
+                        {
+                            dicNomeProdutos.Add(item.id_produto, item.pd_nome);
+                        }
+                    }
+                    else
+                    {
+                        mensagemErro = "O produto não foi encontrado.";
+                    }
                 }
-
-                return dicNomeProdutos;
-                //return listaNomeProdutos;
             }
-        }
-
-        private tb_produto BuscarDadosProduto(string _nomeProduto)
-        {
-            using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
+            catch (Exception ex)
             {
-                var produtoEncontrado = context.tb_produto.FirstOrDefault(x => x.pd_nome.Equals(_nomeProduto));
-
-                // Caso não encontre o produto, produtoEncontrado será null
-                return produtoEncontrado;
+                ViewBag.MensagemErro = "Ocorreu um erro ao buscar o produto.";
             }
         }
+
+        //private tb_produto BuscarDadosProduto(string _nomeProduto, string mensagemErro = null)
+        //{
+        //    try
+        //    {
+        //        using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
+        //        {
+        //            var produtoEncontrado = context.tb_produto.FirstOrDefault(x => x.pd_nome.Equals(_nomeProduto));
+
+        //            if (produtoEncontrado != null)
+        //            {
+        //                return produtoEncontrado;
+        //            }
+        //            else
+        //            {
+        //                mensagemErro = "O produto não foi encontrado.";
+        //            }
+        //        }
+
+        //        ViewBag.MensagemErro = mensagemErro;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ViewBag.MensagemErro = "Ocorreu um erro ao buscar produto.";
+        //    }
+        //}
 
         [HttpGet]
         public IActionResult AlterarProduto()
@@ -97,10 +150,8 @@ namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
             return View();
         }
 
-        private static int idProduto = 0;
-
         [HttpGet]
-        public IActionResult AleterProdutoPegandoId(int _idProduto)
+        public IActionResult AlterarProdutoPegandoId(int _idProduto)
         {
             idProduto = _idProduto;
 
@@ -112,10 +163,10 @@ namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
         {
             if (_nomeProduto != null)
             {
-                Dictionary<int, string> listaProduto = BuscarProdutosNome(_nomeProduto);
+                BuscarProdutosNome(_nomeProduto);
 
                 TempData["NomeProduto"] = null;
-                TempData["NomeProduto"] = listaProduto;
+                TempData["NomeProduto"] = dicNomeProdutos;
 
                 TempData["LetrasDigitadas"] = null;
                 TempData["LetrasDigitadas"] = _nomeProduto;
@@ -124,14 +175,13 @@ namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
 
                 if (idProduto != 0)
                 {
-                    BuscarDadosProduto(idProduto);
+                    BuscarDadosProduto();
                 }
             }
 
             return View();
         }
 
-        //[HttpPut]
         public IActionResult AlterarDadosProduto(tb_produto _dadosProduto)
         {
             using (SistemaDeGerenciamento2_0Context contex = new SistemaDeGerenciamento2_0Context())
@@ -300,6 +350,8 @@ namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
             //    return BadRequest("Erro ao Buscar Dados do Grupos Cadastrados!");
             //}
         }
+
+        #endregion Produto
 
         private void BuscarListaFornecedoresCadastrados()
         {
@@ -644,14 +696,14 @@ namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
             }
         }
 
-        public PartialViewResult ExibirPartialView(int _idProduto)
-        {
-            BuscarDadosProduto(_idProduto);
+        //public PartialViewResult ExibirPartialView(int _idProduto)
+        //{
+        //    BuscarDadosProduto(_idProduto);
 
-            return PartialView("AlterarDadosProdutoPartialView");
-        }
+        //    return PartialView("AlterarDadosProdutoPartialView");
+        //}
 
-        private void BuscarDadosProduto(int idProduto)
+        private void BuscarDadosProduto()
         {
             using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
             {
@@ -659,6 +711,8 @@ namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
 
                 TempData["DadosProduto"] = null;
                 TempData["DadosProduto"] = dadosProdutos;
+
+                idProduto = 0;
             }
         }
     }

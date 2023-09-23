@@ -18,12 +18,29 @@
     var dadosProduto = TempData["DadosProduto"] as tb_produto;
 
     bool mostrarPartial = false;
+
+    int idTeste = 0;
 }
 
 @if (TempData["mensagemSucesso"] != null)
 {
     <div class="alert alert-success" role="alert">
         @TempData["mensagemSucesso"]
+    </div>
+}
+
+
+@if (ViewBag.MensagemErro == "Realizado com sucesso.")
+{
+    <div class="alert alert-success">
+        @ViewBag.MensagemErro
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.MensagemErro))
+{
+    <div class="alert alert-danger">
+        @ViewBag.MensagemErro
     </div>
 }
 
@@ -106,7 +123,7 @@
                                                     <div class="row g-3">
                                                         <div class="col-md-3">
                                                             <label class="form-label">Código Produto</label>
-                                                            
+
                                                             <input asp-for="id_produto" value="@dadosProduto.id_produto" type="number" class="form-control" style="display: none;">
 
                                                             @if (dadosProduto.pd_nome != null)
@@ -181,7 +198,7 @@
                                                         <div class="col-md-2">
                                                             <label class="form-label">Tipo Produto</label>
                                                             <select asp-for="pd_tipo_produto" type="text" class="form-select" required>
-                                                                <option selected >@dadosProduto.pd_tipo_produto</option>
+                                                                <option selected>@dadosProduto.pd_tipo_produto</option>
                                                                 @if (dadosProduto.pd_tipo_produto == "Normal")
                                                                 {
                                                                     <option>Composição</option>
@@ -249,7 +266,10 @@
                                 </div>
 
                                 <div class="col-12">
+
                                     <button class="btn btn-primary" type="submit" onsubmit="removerSimboloR$Porcentagem()">Atualizar Dados Produto</button>
+                                    <button class="btn btn-danger" id="btnDeletarProduto" data-id-produto="@dadosProduto.id_produto">Deletar Produto</button>
+                                
                                 </div>
                             }
                         </form>
@@ -275,13 +295,54 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    @*Abrindo a mensagem de confirmação para deletar o produto e acessando minha controler para a ação*@
+    <script>
+        document.getElementById("btnDeletarProduto").addEventListener("click", function (event) {
+            event.preventDefault(); // Impede o envio do formulário
+
+            var idProduto = this.getAttribute("data-id-produto"); // Obtém o valor do atributo data-id-produto
+
+            Swal.fire({
+                title: 'Tem certeza que deseja excluir?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Sim',
+                cancelButtonText: 'Cancelar',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'DELETE',
+                        url: '/Cadastros/DeletarProduto',
+                        data: { _idProduto: idProduto },
+                        success: function () {
+                            // Redireciona após a exclusão bem-sucedida
+                            window.location.href = '/Cadastros/DeletarProduto'; // Ajuste a URL conforme necessário
+                        },
+                        error: function (xhr, status, error) {
+                            console.log('Ocorreu um erro durante a requisição AJAX: ' + error);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+
+
+>
+
+
+
     <script>
         $(document).ready(function () {
             $("#pegandoIdProduto").on('change', function () {
                 let idProduto = $(this).val();
                 $.ajax({
                     type: "GET",
-                    url: "/Cadastros/AleterProdutoPegandoId",
+                    url: "/Cadastros/AlterarProdutoPegandoId",
                     data: { _idProduto: idProduto },
                     success: function (result) {
                         // Recarregar a página após a requisição
@@ -295,7 +356,7 @@
         });
     </script>
 
-    @*Formatando Porcentagem*@
+        @*Formatando Porcentagem*@
     <script>
 
         function formatarPorcentagem(input) {
@@ -328,7 +389,7 @@
 
     </script>
 
-    @*Remover o simbolo de R$  e % no momento do input*@
+        @*Remover o simbolo de R$  e % no momento do input*@
     <script>
         function removerSimboloR$Porcentagem() {
 
@@ -349,7 +410,7 @@
         }
     </script>
 
-    @*Não deixa digitar numeros *@
+        @*Não deixa digitar numeros *@
     <script>
         if (document.querySelector("#cleave-nome")) {
             var input = document.querySelector("#cleave-nome");
@@ -361,7 +422,7 @@
         }
     </script>
 
-    @*Calculando preço*@
+        @*Calculando preço*@
     <script>
         $(function () {
             $('#cleave-dinheiro1').blur(function () {
@@ -408,7 +469,7 @@
         });
     </script>
 
-    @*Verifcação de Codigo de Barras*@
+        @*Verifcação de Codigo de Barras*@
     <script>
         $(function () {
             $('#verificacaoCodigoBarras').blur(function () {
@@ -436,7 +497,7 @@
         });
     </script>
 
-    @*Verifcação de Codigo de Produto*@
+        @*Verifcação de Codigo de Produto*@
     <script>
         $(function () {
             $('#verificacaoCodigoProduto').blur(function () {
