@@ -13,6 +13,11 @@ namespace Sistema_de_Gerenciamento_Web.Controllers
             _logger = logger;
         }
 
+        public IActionResult GridJs()
+        {
+            return View();
+        }
+
         public IActionResult Index()
         {
             return View();

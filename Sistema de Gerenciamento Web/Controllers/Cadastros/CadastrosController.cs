@@ -37,24 +37,18 @@ namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
         {
             try
             {
-                using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
+                if (_idProduto != 0)
                 {
-                    var produtoDeletar = context.tb_produto.FirstOrDefault(x => x.id_produto.Equals(_idProduto));
-
-                    if (produtoDeletar != null)
+                    using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
                     {
+                        var produtoDeletar = context.tb_produto.FirstOrDefault(x => x.id_produto.Equals(_idProduto));
+
                         context.tb_produto.Remove(produtoDeletar);
-                        //context.SaveChanges();
-
-                        mensagemErro = "Realizado com sucesso.";
-                    }
-                    else
-                    {
-                        mensagemErro = "O produto não foi encontrado.";
+                        context.SaveChanges();
                     }
                 }
-
-                ViewBag.MensagemErro = mensagemErro;
+                string mensagem = "Produto excluido com sucesso!";
+                TempData["mensagemSucesso"] = mensagem;
 
                 return View("AlterarProduto");
             }
@@ -184,41 +178,45 @@ namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
 
         public IActionResult AlterarDadosProduto(tb_produto _dadosProduto)
         {
-            using (SistemaDeGerenciamento2_0Context contex = new SistemaDeGerenciamento2_0Context())
+            try
             {
-                var dadoProduto = contex.tb_produto.FirstOrDefault(x => x.id_produto.Equals(_dadosProduto.id_produto));
+                using (SistemaDeGerenciamento2_0Context contex = new SistemaDeGerenciamento2_0Context())
+                {
+                    var dadoProduto = contex.tb_produto.FirstOrDefault(x => x.id_produto.Equals(_dadosProduto.id_produto));
 
-                dadoProduto.pd_codigo = _dadosProduto.pd_codigo;
-                dadoProduto.pd_finalidade = _dadosProduto.pd_finalidade;
-                dadoProduto.pd_nome = _dadosProduto.pd_nome;
-                dadoProduto.pd_estoque_minimo = _dadosProduto.pd_estoque_minimo;
-                dadoProduto.pd_custo = _dadosProduto.pd_custo;
-                dadoProduto.pd_margem = _dadosProduto.pd_margem;
-                dadoProduto.pd_preco = _dadosProduto.pd_preco;
-                dadoProduto.pd_observacoes = _dadosProduto.pd_observacoes;
-                dadoProduto.pd_codigo_barras = _dadosProduto.pd_codigo_barras;
-                dadoProduto.pd_tipo_produto = _dadosProduto.pd_tipo_produto;
-                dadoProduto.pd_tipo_unidade = _dadosProduto.pd_tipo_unidade;
+                    dadoProduto.pd_codigo = _dadosProduto.pd_codigo;
+                    dadoProduto.pd_finalidade = _dadosProduto.pd_finalidade;
+                    dadoProduto.pd_nome = _dadosProduto.pd_nome;
+                    dadoProduto.pd_estoque_minimo = _dadosProduto.pd_estoque_minimo;
+                    dadoProduto.pd_custo = _dadosProduto.pd_custo;
+                    dadoProduto.pd_margem = _dadosProduto.pd_margem;
+                    dadoProduto.pd_preco = _dadosProduto.pd_preco;
+                    dadoProduto.pd_observacoes = _dadosProduto.pd_observacoes;
+                    dadoProduto.pd_codigo_barras = _dadosProduto.pd_codigo_barras;
+                    dadoProduto.pd_tipo_produto = _dadosProduto.pd_tipo_produto;
+                    dadoProduto.pd_tipo_unidade = _dadosProduto.pd_tipo_unidade;
 
-                contex.SaveChanges();
+                    contex.SaveChanges();
+
+                    string mensagem = "Operação realizada com sucesso!";
+                    TempData["mensagemSucesso"] = mensagem;
+                }
+
+                return View("AlterarProduto");
             }
+            catch (Exception x)
+            {
+                ViewBag.MensagemErro = "Ocorreu um erro ao alterar o produto.";
 
-            return View("AlterarProduto");
+                return View("AlterarProduto");
+            }
         }
 
         [HttpPost]
         public IActionResult CadastrarProduto(tb_produto _produto)
         {
-            if (!ModelState.IsValid)
+            if (!IsCamposPreenchidos())
             {
-                foreach (var stat in ModelState.Values)
-                {
-                    foreach (var erro in stat.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, erro.ErrorMessage);
-                    }
-                }
-
                 PreencherCampos();
 
                 return View(_produto);
@@ -226,25 +224,7 @@ namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
 
             if (IsCodigoProdutoExiste(_produto.pd_codigo) == false && IsCodigoBarrasProdutoExiste(_produto.pd_codigo_barras) == false)
             {
-                try
-                {
-                    using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
-                    {
-                        context.tb_produto.Add(_produto);
-                        context.SaveChanges();
-                    }
-                }
-                catch (Exception)
-                {
-                    return BadRequest("Erro ao Inserir Dados do Produto!");
-                }
-
-                ModelState.Clear();
-
-                string mensagem = "Operação realizada com sucesso!";
-                TempData["mensagemSucesso"] = mensagem;
-
-                PreencherCampos();
+                InserirCadastroProduto(_produto);
 
                 return View();
             }
@@ -254,10 +234,29 @@ namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
 
                 return View(_produto);
             }
+        }
 
-            PreencherCampos();
+        private void InserirCadastroProduto(tb_produto _produto)
+        {
+            try
+            {
+                using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
+                {
+                    context.tb_produto.Add(_produto);
+                    context.SaveChanges();
+                }
 
-            return View();
+                ModelState.Clear();
+
+                string mensagem = "Operação realizada com sucesso!";
+                TempData["mensagemSucesso"] = mensagem;
+
+                PreencherCampos();
+            }
+            catch (Exception)
+            {
+                ViewBag.MensagemErro = "Ocorreu um erro ao cadastrar o produto.";
+            }
         }
 
         private void PreencherCampos()
@@ -269,33 +268,51 @@ namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
 
         private bool IsCodigoBarrasProdutoExiste(string _codigoBarrasProduto)
         {
-            using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
+            try
             {
-                var isProdutoExiste = context.tb_produto.Where(x => x.pd_codigo_barras.Equals(_codigoBarrasProduto)).Any();
-
-                if (isProdutoExiste == true)
+                using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
                 {
-                    string mensagem = "Código do Produto já Cadastrado!";
-                    TempData["mensagemFalha"] = mensagem;
-                }
+                    var isProdutoExiste = context.tb_produto.Where(x => x.pd_codigo_barras.Equals(_codigoBarrasProduto)).Any();
 
-                return isProdutoExiste;
+                    if (isProdutoExiste == true)
+                    {
+                        string mensagem = "Código do Produto já Cadastrado!";
+                        TempData["mensagemFalha"] = mensagem;
+                    }
+
+                    return isProdutoExiste;
+                }
+            }
+            catch (Exception)
+            {
+                ViewBag.MensagemErro = "Ocorreu um erro ao verificar codigo barras do produto.";
+
+                return false;
             }
         }
 
         private bool IsCodigoProdutoExiste(string _codigoProduto)
         {
-            using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
+            try
             {
-                var isProdutoExiste = context.tb_produto.Where(x => x.pd_codigo.Equals(_codigoProduto)).Any();
-
-                if (isProdutoExiste == true)
+                using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
                 {
-                    string mensagem = "Código de Barras já Cadastrado!";
-                    TempData["mensagemFalha"] = mensagem;
-                }
+                    var isProdutoExiste = context.tb_produto.Where(x => x.pd_codigo.Equals(_codigoProduto)).Any();
 
-                return isProdutoExiste;
+                    if (isProdutoExiste == true)
+                    {
+                        string mensagem = "Código de Barras já Cadastrado!";
+                        TempData["mensagemFalha"] = mensagem;
+                    }
+
+                    return isProdutoExiste;
+                }
+            }
+            catch (Exception)
+            {
+                ViewBag.MensagemErro = "Ocorreu um erro ao verificar codigo do produto.";
+
+                return false;
             }
         }
 
@@ -335,40 +352,40 @@ namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
 
         private void BuscarListaGrupoProdutosCadastrados()
         {
-            //try
-            //{
-            using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
+            try
             {
-                var grupo = context.tb_grupo.Where(x => x.gp_nome_grupo != null && x.gp_nome_agrupador != null).ToList();
+                using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
+                {
+                    var grupo = context.tb_grupo.Where(x => x.gp_nome_grupo != null && x.gp_nome_agrupador != null).ToList();
 
-                ViewData["GruposCadastrados"] = null;
-                ViewData["GruposCadastrados"] = grupo;
+                    ViewData["GruposCadastrados"] = null;
+                    ViewData["GruposCadastrados"] = grupo;
+                }
             }
-            //}
-            //catch (Exception)
-            //{
-            //    return BadRequest("Erro ao Buscar Dados do Grupos Cadastrados!");
-            //}
+            catch (Exception)
+            {
+                ViewBag.MensagemErro = "Ocorreu um erro ao buscar lista de grupo dos produto cadastrados.";
+            }
         }
 
         #endregion Produto
 
         private void BuscarListaFornecedoresCadastrados()
         {
-            //try
-            //{
-            using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
+            try
             {
-                var fornecedores = context.tb_registro.Where(x => x.rg_tipo_cadastro == "Fornecedor").ToList();
+                using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
+                {
+                    var fornecedores = context.tb_registro.Where(x => x.rg_tipo_cadastro == "Fornecedor").ToList();
 
-                ViewData["FornecedoresCadastrados"] = null;
-                ViewData["FornecedoresCadastrados"] = fornecedores;
+                    ViewData["FornecedoresCadastrados"] = null;
+                    ViewData["FornecedoresCadastrados"] = fornecedores;
+                }
             }
-            //}
-            //catch (Exception)
-            //{
-            //    return BadRequest("Erro ao Buscar Dados do Fornecedores Cadastrados!");
-            //}
+            catch (Exception)
+            {
+                ViewBag.MensagemErro = "Ocorreu um erro ao buscar lista de grupo dos fornecedores cadastrados.";
+            }
         }
 
         [HttpGet]
@@ -380,6 +397,25 @@ namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
         [HttpPost]
         public IActionResult CadastrarFuncionario(CadastroViewModel _cadastoViewModel)
         {
+            if (!IsCamposPreenchidos())
+            {
+                return View(_cadastoViewModel);
+            }
+
+            if (IsCpfExiste(_cadastoViewModel.registro.rg_cpf) == false || IsCnpjExiste(_cadastoViewModel.registro.rg_cnpj) == false)
+            {
+                InserirCadastroFuncionario(_cadastoViewModel);
+
+                return View();
+            }
+            else
+            {
+                return View(_cadastoViewModel);
+            }
+        }
+
+        private bool IsCamposPreenchidos()
+        {
             if (!ModelState.IsValid)
             {
                 foreach (var stat in ModelState.Values)
@@ -390,46 +426,40 @@ namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
                     }
                 }
 
-                return View(_cadastoViewModel);
+                return false;
             }
 
-            if (IsCpfExiste(_cadastoViewModel.registro.rg_cpf) == false || IsCnpjExiste(_cadastoViewModel.registro.rg_cnpj) == false)
+            return true;
+        }
+
+        private void InserirCadastroFuncionario(CadastroViewModel _cadastoViewModel)
+        {
+            try
             {
-                try
+                using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
                 {
-                    using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
-                    {
-                        string tipoCadastro = "Funcionario";
+                    string tipoCadastro = "Funcionario";
 
-                        _cadastoViewModel.registro.rg_tipo_cadastro = tipoCadastro;
+                    _cadastoViewModel.registro.rg_tipo_cadastro = tipoCadastro;
 
-                        context.tb_enderecos.Add(_cadastoViewModel.endereco);
-                        context.SaveChanges();
+                    context.tb_enderecos.Add(_cadastoViewModel.endereco);
+                    context.SaveChanges();
 
-                        _cadastoViewModel.registro.fk_endereco = _cadastoViewModel.endereco.id_endereco;
+                    _cadastoViewModel.registro.fk_endereco = _cadastoViewModel.endereco.id_endereco;
 
-                        context.tb_registro.Add(_cadastoViewModel.registro);
-                        context.SaveChanges();
-                    }
-                }
-                catch (Exception)
-                {
-                    return BadRequest("Erro ao Inserir Dados do Funcionario!");
+                    context.tb_registro.Add(_cadastoViewModel.registro);
+                    context.SaveChanges();
                 }
 
                 ModelState.Clear();
 
                 string mensagem = "Operação realizada com sucesso!";
                 TempData["mensagemSucesso"] = mensagem;
-
-                return View();
             }
-            else
+            catch (Exception)
             {
-                return View(_cadastoViewModel);
+                ViewBag.MensagemErro = "Ocorreu um erro ao cadastrar funcionario.";
             }
-
-            return View();
         }
 
         [HttpGet]
@@ -441,47 +471,14 @@ namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
         [HttpPost]
         public IActionResult CadastrarFornecedor(CadastroViewModel _cadastoViewModel)
         {
-            if (!ModelState.IsValid)
+            if (!IsCamposPreenchidos())
             {
-                foreach (var stat in ModelState.Values)
-                {
-                    foreach (var erro in stat.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, erro.ErrorMessage);
-                    }
-                }
-
                 return View(_cadastoViewModel);
             }
 
             if (IsCpfExiste(_cadastoViewModel.registro.rg_cpf) == false || IsCnpjExiste(_cadastoViewModel.registro.rg_cnpj) == false)
             {
-                try
-                {
-                    using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
-                    {
-                        string tipoCadastro = "Fornecedor";
-
-                        _cadastoViewModel.registro.rg_tipo_cadastro = tipoCadastro;
-
-                        context.tb_enderecos.Add(_cadastoViewModel.endereco);
-                        context.SaveChanges();
-
-                        _cadastoViewModel.registro.fk_endereco = _cadastoViewModel.endereco.id_endereco;
-
-                        context.tb_registro.Add(_cadastoViewModel.registro);
-                        context.SaveChanges();
-                    }
-                }
-                catch (Exception)
-                {
-                    return BadRequest("Erro ao Inserir Dados do Fornecedor!");
-                }
-
-                ModelState.Clear();
-
-                string mensagem = "Operação realizada com sucesso!";
-                TempData["mensagemSucesso"] = mensagem;
+                InserirCadastroFornecedor(_cadastoViewModel);
 
                 return View();
             }
@@ -489,8 +486,36 @@ namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
             {
                 return View(_cadastoViewModel);
             }
+        }
 
-            return View();
+        private void InserirCadastroFornecedor(CadastroViewModel _cadastoViewModel)
+        {
+            try
+            {
+                using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
+                {
+                    string tipoCadastro = "Fornecedor";
+
+                    _cadastoViewModel.registro.rg_tipo_cadastro = tipoCadastro;
+
+                    context.tb_enderecos.Add(_cadastoViewModel.endereco);
+                    context.SaveChanges();
+
+                    _cadastoViewModel.registro.fk_endereco = _cadastoViewModel.endereco.id_endereco;
+
+                    context.tb_registro.Add(_cadastoViewModel.registro);
+                    context.SaveChanges();
+
+                    ModelState.Clear();
+
+                    string mensagem = "Operação realizada com sucesso!";
+                    TempData["mensagemSucesso"] = mensagem;
+                }
+            }
+            catch (Exception)
+            {
+                ViewBag.MensagemErro = "Ocorreu um erro ao Inserir Dados do Fornecedor!";
+            }
         }
 
         [HttpGet]
@@ -502,52 +527,14 @@ namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
         [HttpPost]
         public IActionResult CadastrarCliente(CadastroClienteViewModel _cadastoViewModel)
         {
-            if (!ModelState.IsValid)
+            if (!IsCamposPreenchidos())
             {
-                foreach (var stat in ModelState.Values)
-                {
-                    foreach (var erro in stat.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, erro.ErrorMessage);
-                    }
-                }
-
                 return View(_cadastoViewModel);
             }
 
             if (IsCpfExiste(_cadastoViewModel.registro.rg_cpf) == false || IsCnpjExiste(_cadastoViewModel.registro.rg_cnpj) == false)
             {
-                try
-                {
-                    using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
-                    {
-                        string tipoCadastro = "Cliente";
-
-                        _cadastoViewModel.registro.rg_tipo_cadastro = tipoCadastro;
-
-                        context.tb_enderecos.Add(_cadastoViewModel.endereco);
-                        context.SaveChanges();
-
-                        _cadastoViewModel.registro.fk_endereco = _cadastoViewModel.endereco.id_endereco;
-
-                        context.tb_informacoes_comerciais.Add(_cadastoViewModel.InformacoesComercial);
-                        context.SaveChanges();
-
-                        _cadastoViewModel.registro.fk_informacao_comercial = _cadastoViewModel.InformacoesComercial.id_informacao_comercial;
-
-                        context.tb_registro.Add(_cadastoViewModel.registro);
-                        context.SaveChanges();
-                    }
-                }
-                catch (Exception)
-                {
-                    return BadRequest("Erro ao Inserir Dados do Cliente!");
-                }
-
-                ModelState.Clear();
-
-                string mensagem = "Operação realizada com sucesso!";
-                TempData["mensagemSucesso"] = mensagem;
+                InserirCadastroCliente(_cadastoViewModel);
 
                 return View();
             }
@@ -555,8 +542,40 @@ namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
             {
                 return View(_cadastoViewModel);
             }
+        }
 
-            return View();
+        private void InserirCadastroCliente(CadastroClienteViewModel _cadastoViewModel)
+        {
+            try
+            {
+                using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
+                {
+                    string tipoCadastro = "Cliente";
+
+                    _cadastoViewModel.registro.rg_tipo_cadastro = tipoCadastro;
+
+                    context.tb_enderecos.Add(_cadastoViewModel.endereco);
+                    context.SaveChanges();
+
+                    _cadastoViewModel.registro.fk_endereco = _cadastoViewModel.endereco.id_endereco;
+
+                    context.tb_informacoes_comerciais.Add(_cadastoViewModel.InformacoesComercial);
+                    context.SaveChanges();
+
+                    _cadastoViewModel.registro.fk_informacao_comercial = _cadastoViewModel.InformacoesComercial.id_informacao_comercial;
+
+                    context.tb_registro.Add(_cadastoViewModel.registro);
+                    context.SaveChanges();
+                    ModelState.Clear();
+
+                    string mensagem = "Operação realizada com sucesso!";
+                    TempData["mensagemSucesso"] = mensagem;
+                }
+            }
+            catch (Exception)
+            {
+                ViewBag.MensagemErro = "Ocorreu um erro ao Inserir Dados do Cliente!";
+            }
         }
 
         [HttpPost]
@@ -600,44 +619,62 @@ namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
 
         private bool IsCpfExiste(string _cpf)
         {
-            if (_cpf != null)
+            try
             {
-                using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
+                if (_cpf != null)
                 {
-                    var isCpfExiste = context.tb_registro.Where(x => x.rg_cpf.Equals(_cpf)).Any();
-
-                    if (isCpfExiste == true)
+                    using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
                     {
-                        string mensagem = "CPF já Cadastrado!";
-                        TempData["mensagemFalha"] = mensagem;
+                        var isCpfExiste = context.tb_registro.Where(x => x.rg_cpf.Equals(_cpf)).Any();
+
+                        if (isCpfExiste == true)
+                        {
+                            string mensagem = "CPF já Cadastrado!";
+                            TempData["mensagemFalha"] = mensagem;
+                        }
+
+                        return isCpfExiste;
                     }
-
-                    return isCpfExiste;
                 }
-            }
 
-            return true;
+                return true;
+            }
+            catch (Exception)
+            {
+                ViewBag.MensagemErro = "Ocorreu um erro ao buscar CPF!";
+
+                return true;
+            }
         }
 
         private bool IsCnpjExiste(string _cnpj)
         {
-            if (_cnpj != null)
+            try
             {
-                using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
+                if (_cnpj != null)
                 {
-                    var isCnpjExiste = context.tb_registro.Where(x => x.rg_cnpj.Equals(_cnpj)).Any();
-
-                    if (isCnpjExiste == true)
+                    using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
                     {
-                        string mensagem = "CNPJ já Cadastrado!";
-                        TempData["mensagemFalha"] = mensagem;
+                        var isCnpjExiste = context.tb_registro.Where(x => x.rg_cnpj.Equals(_cnpj)).Any();
+
+                        if (isCnpjExiste == true)
+                        {
+                            string mensagem = "CNPJ já Cadastrado!";
+                            TempData["mensagemFalha"] = mensagem;
+                        }
+
+                        return isCnpjExiste;
                     }
-
-                    return isCnpjExiste;
                 }
-            }
 
-            return true;
+                return true;
+            }
+            catch (Exception)
+            {
+                ViewBag.MensagemErro = "Ocorreu um erro ao buscar CNPJ!";
+
+                return true;
+            }
         }
 
         [HttpPost]
@@ -705,14 +742,21 @@ namespace Sistema_de_Gerenciamento_Web.Controllers.Cadastros
 
         private void BuscarDadosProduto()
         {
-            using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
+            try
             {
-                var dadosProdutos = context.tb_produto.FirstOrDefault(x => x.id_produto.Equals(idProduto));
+                using (SistemaDeGerenciamento2_0Context context = new SistemaDeGerenciamento2_0Context())
+                {
+                    var dadosProdutos = context.tb_produto.FirstOrDefault(x => x.id_produto.Equals(idProduto));
 
-                TempData["DadosProduto"] = null;
-                TempData["DadosProduto"] = dadosProdutos;
+                    TempData["DadosProduto"] = null;
+                    TempData["DadosProduto"] = dadosProdutos;
 
-                idProduto = 0;
+                    idProduto = 0;
+                }
+            }
+            catch (Exception)
+            {
+                ViewBag.MensagemErro = "Ocorreu um erro ao buscar dados produto";
             }
         }
     }

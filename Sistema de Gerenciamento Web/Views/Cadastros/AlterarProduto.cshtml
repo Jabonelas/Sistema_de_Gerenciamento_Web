@@ -30,12 +30,7 @@
 }
 
 
-@if (ViewBag.MensagemErro == "Realizado com sucesso.")
-{
-    <div class="alert alert-success">
-        @ViewBag.MensagemErro
-    </div>
-}
+
 
 @if (!string.IsNullOrEmpty(ViewBag.MensagemErro))
 {
@@ -50,9 +45,6 @@
         @TempData["mensagemFalha"]
     </div>
 }
-
-
-
 
 <div class="row">
     <div class="col-lg-12">

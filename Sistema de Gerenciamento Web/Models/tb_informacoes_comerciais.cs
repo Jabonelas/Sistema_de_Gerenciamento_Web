@@ -25,11 +25,12 @@ namespace Sistema_de_Gerenciamento_Web.Models
         [StringLength(255)]
         [Unicode(false)]
         public string ic_prioridade { get; set; }
+        [Required]
         [StringLength(255)]
         [Unicode(false)]
         public string ic_vendedor { get; set; }
         [Column(TypeName = "decimal(10, 2)")]
-        public decimal? ic_limite_credito { get; set; }
+        public decimal ic_limite_credito { get; set; }
 
         [InverseProperty("fk_informacao_comercialNavigation")]
         public virtual ICollection<tb_registro> tb_registro { get; set; }

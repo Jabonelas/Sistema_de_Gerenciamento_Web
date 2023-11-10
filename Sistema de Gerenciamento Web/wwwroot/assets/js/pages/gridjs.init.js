@@ -6,67 +6,174 @@ Contact: Themesbrand@gmail.com
 File: grid Js File
 */
 
-// Basic Table
-if (document.getElementById("table-gridjs"))
-    new gridjs.Grid({
-        columns: [{
-                name: 'ID',
-                width: '80px',
-                formatter: (function (cell) {
-                    return gridjs.html('<span class="fw-semibold">' + cell + '</span>');
-                })
-            },
-            {
-                name: 'Name',
-                width: '150px',
-            },
-            {
-                name: 'Email',
-                width: '220px',
-                formatter: (function (cell) {
-                    return gridjs.html('<a href="">' + cell + '</a>');
-                })
-            },
-            {
-                name: 'Position',
-                width: '250px',
-            },
-            {
-                name: 'Company',
-                width: '180px',
-            },
-            {
-                name: 'Country',
-                width: '180px',
-            },
-            {
-                name: 'Actions',
-                width: '150px',
-                formatter: (function (cell) {
-                    return gridjs.html("<a href='#' class='text-reset text-decoration-underline'>" +
-                        "Details" +
-                        "</a>");
-                })
-            },
-        ],
-        pagination: {
-            limit: 5
+if (document.getElementById("table-gridjs")) {
+    $.ajax({
+        url: "Produto/BuscarTodosProdutosCadastrados",
+        method: "GET",
+        success: function (data) {
+            const arrayPrincipal = [];
+
+            console.log("teste")
+
+            for (var i = 0; i < data.length; i++) {
+                arrayPrincipal.push([
+                    data[i].id_produto, data[i].pd_nome, data[i].pd_codigo, data[i].pd_codigo_barras, "R$ " + data[i].pd_custo, data[i].pd_margem + "%", "R$ " + data[i].pd_preco
+                ]);
+            }
+
+            console.log(arrayPrincipal)
+
+            // Basic Table
+            if (document.getElementById("table-gridjs"))
+                new gridjs.Grid({
+                    columns: [{
+                        name: 'ID',
+                        width: '80px',
+                        formatter: (function (cell) {
+                            return gridjs.html('<span class="fw-semibold">' + cell + '</span>');
+                        })
+                    },
+                    {
+                        name: 'Nome',
+                        width: '400px',
+                    },
+                    {
+                        name: 'Codigo Produto',
+                        width: '150px',
+                        //formatter: (function (cell) {
+                        //    return gridjs.html('<a href="">' + cell + '</a>');
+                        //})
+                    },
+                    {
+                        name: 'Codigo Barras',
+                        width: '150px',
+                    },
+                    {
+                        name: 'Custo Produto',
+                        width: '150px',
+                    },
+                    {
+                        name: 'Margem Lucro',
+                        width: '150px',
+                    },
+                    {
+                        name: 'Preco',
+                        width: '150px',
+                        //formatter: (function (cell) {
+                        //    return gridjs.html("<a href='#' class='text-reset text-decoration-underline'>" +
+                        //        "Details" +
+                        //        "</a>");
+                        //})
+                    },
+                    ],
+                    pagination: {
+                        limit: 5
+                    },
+                    sort: true,
+                    search: true,
+                    language: {
+                        search: {
+                            placeholder: 'Buscar...'
+                        },
+
+                        pagination: {
+                            previous: "Anterior", next: "Proximo",
+
+                            showing: "Exibindo", of: "de", to: "a", results: "Resultados"
+                        }
+                    },
+                    data: arrayPrincipal
+                }).render(document.getElementById("table-gridjs"));
         },
-        sort: true,
-        search: true,
-        data: [
-            ["01", "Jonathan", "jonathan@example.com", "Senior Implementation Architect", "Hauck Inc", "Holy See"],
-            ["02", "Harold", "harold@example.com", "Forward Creative Coordinator", "Metz Inc", "Iran"],
-            ["03", "Shannon", "shannon@example.com", "Legacy Functionality Associate", "Zemlak Group", "South Georgia"],
-            ["04", "Robert", "robert@example.com", "Product Accounts Technician", "Hoeger", "San Marino"],
-            ["05", "Noel", "noel@example.com", "Customer Data Director", "Howell - Rippin", "Germany"],
-            ["06", "Traci", "traci@example.com", "Corporate Identity Director", "Koelpin - Goldner", "Vanuatu"],
-            ["07", "Kerry", "kerry@example.com", "Lead Applications Associate", "Feeney, Langworth and Tremblay", "Niger"],
-            ["08", "Patsy", "patsy@example.com", "Dynamic Assurance Director", "Streich Group", "Niue"],
-            ["09", "Cathy", "cathy@example.com", "Customer Data Director", "Ebert, Schamberger and Johnston", "Mexico"],
-            ["10", "Tyrone", "tyrone@example.com", "Senior Response Liaison", "Raynor, Rolfson and Daugherty", "Qatar"],
-        ]
-    }).render(document.getElementById("table-gridjs"));
+        error: function (error) {
+            console.error(error);
+        }
+    });
+};
+
+//if (document.getElementById("table-gridjs-Estoque-Produto")) {
+//    $.ajax({
+//        url: "Produto/BuscarEstoqueProdutos",
+//        method: "GET",
+//        success: function (data) {
+//            const arrayPrincipal = [];
+
+//            for (var i = 0; i < data.length; i++) {
+//                arrayPrincipal.push([
+//                    data[i].id_produto, data[i].pd_nome, data[i].pd_codigo, data[i].ep_codigo_barras, "R$ " + data[i].pd_custo, data[i].pd_margem + "%", "R$ " + data[i].pd_preco
+//                    , data[i].ep_quantidade, data[i].pd_tipo_unidade, data[i].pd_estoque_minimo
+
+//                ]);
+//            }
+//            console.log(arrayPrincipal)
+
+//            // Basic Table
+//            if (document.getElementById("table-gridjs"))
+//                new gridjs.Grid({
+//                    columns: [{
+//                        name: 'ID',
+//                        width: '80px',
+//                        formatter: (function (cell) {
+//                            return gridjs.html('<span class="fw-semibold">' + cell + '</span>');
+//                        })
+//                    },
+//                    {
+//                        name: 'Nome',
+//                        width: '400px',
+//                    },
+//                    {
+//                        name: 'Codigo Produto',
+//                        width: '150px',
+//                        //formatter: (function (cell) {
+//                        //    return gridjs.html('<a href="">' + cell + '</a>');
+//                        //})
+//                    },
+//                    {
+//                        name: 'Codigo Barras',
+//                        width: '150px',
+//                    },
+//                    {
+//                        name: 'Custo Produto',
+//                        width: '150px',
+//                    },
+//                    {
+//                        name: 'Margem Lucro',
+//                        width: '150px',
+//                    },
+//                    {
+//                        name: 'Preco',
+//                        width: '150px',
+//                        //formatter: (function (cell) {
+//                        //    return gridjs.html("<a href='#' class='text-reset text-decoration-underline'>" +
+//                        //        "Details" +
+//                        //        "</a>");
+//                        //})
+//                    },
+//                    ],
+//                    pagination: {
+//                        limit: 5
+//                    },
+//                    sort: true,
+//                    search: true,
+//                    language: {
+//                        search: {
+//                            placeholder: 'Buscar...'
+//                        },
+
+//                        pagination: {
+//                            previous: "Anterior", next: "Proximo",
+
+//                            showing: "Exibindo", of: "de", to: "a", results: "Resultados"
+//                        }
+//                    },
+//                    data: arrayPrincipal
+//                }).render(document.getElementById("table-gridjs"));
+//        },
+//        error: function (error) {
+//            console.error(error);
+//        }
+//    });
+//};
 
 // card Table
 if (document.getElementById("table-card"))
@@ -74,7 +181,7 @@ if (document.getElementById("table-card"))
         columns: [{
             name: 'Name',
             width: '150px',
-        },{
+        }, {
             name: 'Email',
             width: '250px',
         }, {
@@ -105,45 +212,44 @@ if (document.getElementById("table-card"))
         ]
     }).render(document.getElementById("table-card"));
 
-
 // pagination Table
 if (document.getElementById("table-pagination"))
     new gridjs.Grid({
         columns: [{
-                name: 'ID',
-                width: '120px',
-                formatter: (function (cell) {
-                    return gridjs.html('<a href="" class="fw-medium">' + cell + '</a>');
-                })
-            }, {
-                name: 'Name',
-                width: '150px',
-            }, {
-                name: 'Date',
-                width: '180px',
-            }, {
-                name: 'Total',
-                width: '120px',
-            }, {
-                name: 'Status',
-                width: '120px',
-            },
-            {
-                name: 'Actions',
-                width: '100px',
-                formatter: (function (cell) {
-                    return gridjs.html("<button type='button' class='btn btn-sm btn-light'>" +
-                        "Details" +
-                        "</button>");
-                })
-            },
+            name: 'ID',
+            width: '120px',
+            formatter: (function (cell) {
+                return gridjs.html('<a href="" class="fw-medium">' + cell + '</a>');
+            })
+        }, {
+            name: 'Name',
+            width: '150px',
+        }, {
+            name: 'Date',
+            width: '180px',
+        }, {
+            name: 'Total',
+            width: '120px',
+        }, {
+            name: 'Status',
+            width: '120px',
+        },
+        {
+            name: 'Actions',
+            width: '100px',
+            formatter: (function (cell) {
+                return gridjs.html("<button type='button' class='btn btn-sm btn-light'>" +
+                    "Details" +
+                    "</button>");
+            })
+        },
         ],
         pagination: {
             limit: 5
         },
 
         data: [
-            ["#VL2111", "Jonathan", "07 Oct, 2021", "$24.05", "Paid", ],
+            ["#VL2111", "Jonathan", "07 Oct, 2021", "$24.05", "Paid",],
             ["#VL2110", "Harold", "07 Oct, 2021", "$26.15", "Paid"],
             ["#VL2109", "Shannon", "06 Oct, 2021", "$21.25", "Refund"],
             ["#VL2108", "Robert", "05 Oct, 2021", "$25.03", "Paid"],
@@ -230,7 +336,6 @@ if (document.getElementById("table-sorting"))
         ]
     }).render(document.getElementById("table-sorting"));
 
-
 // Loading State Table
 if (document.getElementById("table-loading-state"))
     new gridjs.Grid({
@@ -274,7 +379,6 @@ if (document.getElementById("table-loading-state"))
         }
     }).render(document.getElementById("table-loading-state"));
 
-
 // Fixed Header
 if (document.getElementById("table-fixed-header"))
     new gridjs.Grid({
@@ -312,7 +416,6 @@ if (document.getElementById("table-fixed-header"))
         ]
     }).render(document.getElementById("table-fixed-header"));
 
-
 // Hidden Columns
 if (document.getElementById("table-hidden-column"))
     new gridjs.Grid({
@@ -320,19 +423,19 @@ if (document.getElementById("table-hidden-column"))
             name: 'Name',
             width: '120px',
         }, {
-                name: 'Email',
-                width: '250px',
-            }, {
-                name: 'Position',
-                width: '250px',
-            }, {
-                name: 'Company',
-                width: '250px',
-            },
-            {
-                name: 'Country',
-                hidden: true
-            },
+            name: 'Email',
+            width: '250px',
+        }, {
+            name: 'Position',
+            width: '250px',
+        }, {
+            name: 'Company',
+            width: '250px',
+        },
+        {
+            name: 'Country',
+            hidden: true
+        },
         ],
         pagination: {
             limit: 5

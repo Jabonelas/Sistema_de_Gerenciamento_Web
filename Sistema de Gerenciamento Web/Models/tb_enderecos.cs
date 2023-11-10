@@ -33,6 +33,7 @@ namespace Sistema_de_Gerenciamento_Web.Models
         [StringLength(255)]
         [Unicode(false)]
         public string ed_locgradouro { get; set; }
+        [Required]
         [StringLength(255)]
         [Unicode(false)]
         public string ed_numero { get; set; }

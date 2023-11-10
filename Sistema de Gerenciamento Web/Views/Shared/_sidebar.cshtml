@@ -716,29 +716,7 @@
                                                 </li>
 
                                                 <li class="nav-item">
-                                                    <a href="@Url.Action("CadastrarCliente", "Cadastros")" class="nav-link">Buscar/Alterar</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-
-                                <ul class="nav nav-sm flex-column">
-
-                                    <li class="nav-item">
-                                        <a href="#sidebarProfile" class="nav-link" data-bs-toggle="collapse" role="button"
-                                           aria-expanded="false" aria-controls="sidebarProfile" data-key="t-profile">
-                                            Produtos
-                                        </a>
-                                        <div class="collapse menu-dropdown" id="sidebarProfile">
-                                            <ul class="nav nav-sm flex-column">
-                                                <li class="nav-item">
-                                                    <a href="@Url.Action("CadastrarProduto", "Cadastros")" class="nav-link">Cadastrar</a>
-                                                </li>
-
-
-                                                <li class="nav-item">
-                                                    <a href="@Url.Action("AlterarProduto", "Cadastros")" class="nav-link">Buscar/Alterar</a>
+                                                    <a href="@Url.Action("CadastrarCliente", "Cadastros")" class="nav-link">Alterar</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -788,11 +766,45 @@
                 </div>
                 </li>
                 *@
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarUI" data-bs-toggle="collapse" role="button"
+                       aria-expanded="false" aria-controls="sidebarUI">
+                        <i class="las la-flask"></i> <span data-key="t-widgets">Produtos</span>
+                    </a>
+                    <div class="collapse menu-dropdown mega-dropdown-menu" id="sidebarUI">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <ul class="nav nav-sm flex-column">
+
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("CadastrarProduto", "Cadastros")" class="nav-link">Cadastrar</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("AlterarProduto", "Cadastros")" class="nav-link">Alterar</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ProdutosCadastrados", "Produto")" class="nav-link">Produtos Cadastrados</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("ConsultarEstoque", "Produto")" class="nav-link">Consultar Estoque</a>
+                                    </li>
+                                       
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+
+@*
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="@Url.Action("Index", "Widgets")">
                         <i class="las la-flask"></i> <span data-key="t-widgets">Widgets</span>
                     </a>
-                </li>
+                </li>*@
 
                 @*<li class="nav-item">
                 <a class="nav-link menu-link" href="#sidebarForms" data-bs-toggle="collapse" role="button"
