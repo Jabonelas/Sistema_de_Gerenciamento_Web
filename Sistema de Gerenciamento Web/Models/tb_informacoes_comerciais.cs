@@ -25,7 +25,6 @@ namespace Sistema_de_Gerenciamento_Web.Models
         [StringLength(255)]
         [Unicode(false)]
         public string ic_prioridade { get; set; }
-        [Required]
         [StringLength(255)]
         [Unicode(false)]
         public string ic_vendedor { get; set; }

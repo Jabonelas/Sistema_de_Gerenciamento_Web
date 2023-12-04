@@ -41,8 +41,9 @@ app.MapControllerRoute(
 //pattern: "{controller=Cadastros}/{action=teste}/{id?}");
 //pattern: "{controller=Cadastros}/{action=AlterarProduto}/{id?}");
 
-//pattern: "{controller=Home}/{action=Index}/{id?}");
-pattern: "{controller=Produto}/{action=ConsultarEstoque}/{id?}");
+pattern: "{controller=Home}/{action=Index}/{id?}");
+//pattern: "{controller=Produto}/{action=ConsultarEstoque}/{id?}");
+//pattern: "{controller=Produto}/{action=ProdutosCadastrados}/{id?}");
 app.MapRazorPages();
 
 app.Run();

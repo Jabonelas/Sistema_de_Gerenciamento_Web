@@ -55,7 +55,7 @@
             <div class="card-body">
                 <div class="live-preview">
                     <div class="row g-12">
-                        <form class="needs-validation form-group" asp-controller="Cadastros" asp-action="AlterarProduto" method="post" novalidate>
+                        <form class="needs-validation form-group" asp-controller="Produto" asp-action="AlterarProduto" method="post" novalidate>
                             <div class="row g-12">
                                 <div class="col-lg-4">
                                     <div class="input-group">
@@ -100,7 +100,7 @@
                                 }
                             </div>
                         </form>
-                        <form class="needs-validation form-group" asp-controller="Cadastros" asp-action="AlterarDadosProduto" onsubmit="removerSimboloR$Porcentagem()" novalidate>
+                        <form class="needs-validation form-group" asp-controller="Produto" asp-action="AlterarDadosProduto" onsubmit="removerSimboloR$Porcentagem()" novalidate>
 
                             @if (dadosProduto != null)
                             {
@@ -307,11 +307,11 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         type: 'DELETE',
-                        url: '/Cadastros/DeletarProduto',
+                        url: '/Produto/DeletarProduto',
                         data: { _idProduto: idProduto },
                         success: function () {
                             // Redireciona após a exclusão bem-sucedida
-                            window.location.href = '/Cadastros/DeletarProduto'; // Ajuste a URL conforme necessário
+                            window.location.href = '/Produto/DeletarProduto'; // Ajuste a URL conforme necessário
                         },
                         error: function (xhr, status, error) {
                             console.log('Ocorreu um erro durante a requisição AJAX: ' + error);
@@ -334,7 +334,7 @@
                 let idProduto = $(this).val();
                 $.ajax({
                     type: "GET",
-                    url: "/Cadastros/AlterarProdutoPegandoId",
+                    url: "/Produto/AlterarProdutoPegandoId",
                     data: { _idProduto: idProduto },
                     success: function (result) {
                         // Recarregar a página após a requisição
@@ -467,7 +467,7 @@
             $('#verificacaoCodigoBarras').blur(function () {
                 var codigoBarras = $(this).val();
                 $.ajax({
-                    url: '@Url.Action("VerificacaoExistenciaCodigoBarras", "Cadastros")',
+                    url: '@Url.Action("VerificacaoExistenciaCodigoBarras", "Produto")',
                     type: 'POST',
                     data: { _codigoBarras: codigoBarras },
                     success: function (result) {
@@ -495,7 +495,7 @@
             $('#verificacaoCodigoProduto').blur(function () {
                 var codigoProduto = $(this).val();
                 $.ajax({
-                    url: '@Url.Action("VerificacaoExistenciaCodigoProduto", "Cadastros")',
+                    url: '@Url.Action("VerificacaoExistenciaCodigoProduto", "Produto")',
                     type: 'POST',
                     data: { _codigoProduto: codigoProduto },
                     success: function (result) {

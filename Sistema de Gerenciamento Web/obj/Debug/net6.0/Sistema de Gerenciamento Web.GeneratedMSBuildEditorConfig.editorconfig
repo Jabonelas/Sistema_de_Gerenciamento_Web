@@ -10,6 +10,8 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Sistema_de_Gerenciamento_Web
 build_property.RootNamespace = Sistema_de_Gerenciamento_Web
 build_property.ProjectDir = C:\Users\israe\source\repos\Sistema de Gerenciamento Web\Sistema_de_Gerenciamento_Web\Sistema de Gerenciamento Web\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
@@ -20,28 +22,32 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/israe/source/repos/Sistema de Gerenciamento Web/Sistema_de_Gerenciamento_Web/Sistema de Gerenciamento Web/Views/Cadastros/AlterarProduto.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FkYXN0cm9zXEFsdGVyYXJQcm9kdXRvLmNzaHRtbA==
+[C:/Users/israe/source/repos/Sistema de Gerenciamento Web/Sistema_de_Gerenciamento_Web/Sistema de Gerenciamento Web/Views/Cadastros/Cliente/CadastrarCliente.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FkYXN0cm9zXENsaWVudGVcQ2FkYXN0cmFyQ2xpZW50ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/israe/source/repos/Sistema de Gerenciamento Web/Sistema_de_Gerenciamento_Web/Sistema de Gerenciamento Web/Views/Cadastros/CadastrarCliente.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FkYXN0cm9zXENhZGFzdHJhckNsaWVudGUuY3NodG1s
+[C:/Users/israe/source/repos/Sistema de Gerenciamento Web/Sistema_de_Gerenciamento_Web/Sistema de Gerenciamento Web/Views/Cadastros/Fornecedor/CadastrarFornecedor.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FkYXN0cm9zXEZvcm5lY2Vkb3JcQ2FkYXN0cmFyRm9ybmVjZWRvci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/israe/source/repos/Sistema de Gerenciamento Web/Sistema_de_Gerenciamento_Web/Sistema de Gerenciamento Web/Views/Cadastros/CadastrarFornecedor.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FkYXN0cm9zXENhZGFzdHJhckZvcm5lY2Vkb3IuY3NodG1s
+[C:/Users/israe/source/repos/Sistema de Gerenciamento Web/Sistema_de_Gerenciamento_Web/Sistema de Gerenciamento Web/Views/Cadastros/Funcionario/CadastrarFuncionario.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FkYXN0cm9zXEZ1bmNpb25hcmlvXENhZGFzdHJhckZ1bmNpb25hcmlvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/israe/source/repos/Sistema de Gerenciamento Web/Sistema_de_Gerenciamento_Web/Sistema de Gerenciamento Web/Views/Cadastros/CadastrarFuncionario.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FkYXN0cm9zXENhZGFzdHJhckZ1bmNpb25hcmlvLmNzaHRtbA==
+[C:/Users/israe/source/repos/Sistema de Gerenciamento Web/Sistema_de_Gerenciamento_Web/Sistema de Gerenciamento Web/Views/Cadastros/Produto/AlterarProduto.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FkYXN0cm9zXFByb2R1dG9cQWx0ZXJhclByb2R1dG8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/israe/source/repos/Sistema de Gerenciamento Web/Sistema_de_Gerenciamento_Web/Sistema de Gerenciamento Web/Views/Cadastros/CadastrarProduto.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FkYXN0cm9zXENhZGFzdHJhclByb2R1dG8uY3NodG1s
+[C:/Users/israe/source/repos/Sistema de Gerenciamento Web/Sistema_de_Gerenciamento_Web/Sistema de Gerenciamento Web/Views/Cadastros/Produto/CadastrarProduto.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FkYXN0cm9zXFByb2R1dG9cQ2FkYXN0cmFyUHJvZHV0by5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/israe/source/repos/Sistema de Gerenciamento Web/Sistema_de_Gerenciamento_Web/Sistema de Gerenciamento Web/Views/Cadastros/teste.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FkYXN0cm9zXHRlc3RlLmNzaHRtbA==
+[C:/Users/israe/source/repos/Sistema de Gerenciamento Web/Sistema_de_Gerenciamento_Web/Sistema de Gerenciamento Web/Views/Cadastros/Produto/ConsultarEstoque.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FkYXN0cm9zXFByb2R1dG9cQ29uc3VsdGFyRXN0b3F1ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/israe/source/repos/Sistema de Gerenciamento Web/Sistema_de_Gerenciamento_Web/Sistema de Gerenciamento Web/Views/Cadastros/Produto/ProdutosCadastrados.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FkYXN0cm9zXFByb2R1dG9cUHJvZHV0b3NDYWRhc3RyYWRvcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/israe/source/repos/Sistema de Gerenciamento Web/Sistema_de_Gerenciamento_Web/Sistema de Gerenciamento Web/Views/Home/Index.cshtml]
@@ -50,14 +56,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/israe/source/repos/Sistema de Gerenciamento Web/Sistema_de_Gerenciamento_Web/Sistema de Gerenciamento Web/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/israe/source/repos/Sistema de Gerenciamento Web/Sistema_de_Gerenciamento_Web/Sistema de Gerenciamento Web/Views/Produto/ConsultarEstoque.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHV0b1xDb25zdWx0YXJFc3RvcXVlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/israe/source/repos/Sistema de Gerenciamento Web/Sistema_de_Gerenciamento_Web/Sistema de Gerenciamento Web/Views/Produto/ProdutosCadastrados.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHV0b1xQcm9kdXRvc0NhZGFzdHJhZG9zLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/israe/source/repos/Sistema de Gerenciamento Web/Sistema_de_Gerenciamento_Web/Sistema de Gerenciamento Web/Views/Shared/Error.cshtml]

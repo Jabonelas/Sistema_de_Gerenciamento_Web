@@ -32,7 +32,7 @@
 }
 
 
-<form class="needs-validation form-group" asp-controller="Cadastros" asp-action="CadastrarFuncionario" method="post" novalidate>
+<form class="needs-validation form-group" asp-controller="Funcionario" asp-action="CadastrarFuncionario" method="post" novalidate>
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -422,7 +422,7 @@
                 var cep = cepInput.val();
                 if (cep.length >= 9) {
                     $.ajax({
-                        url: `/Cadastros/GetCep/${cep}`,
+                        url: `/Funcionario/GetCep/${cep}`,
                         method: "GET",
                         success: (data) => {
                             $("#cleave-estado").val(data.uf);
@@ -511,7 +511,7 @@
             $('#cleave-cpf').blur(function () {
                 var cpf = $(this).val();
                 $.ajax({
-                    url: '@Url.Action("ValidarCPF", "Cadastros")',
+                    url: '@Url.Action("ValidarCPF", "Validacoes")',
                     type: 'POST',
                     data: { _cpf: cpf },
                     success: function (result) {
@@ -536,7 +536,7 @@
             $('#cleave-cpf').blur(function () {
                 var cpf = $(this).val();
                 $.ajax({
-                    url: '@Url.Action("VerificacaoExistenciaCPF", "Cadastros")',
+                    url: '@Url.Action("VerificacaoExistenciaCPF", "Validacoes")',
                     type: 'POST',
                     data: { _cpf: cpf },
                     success: function (result) {
@@ -561,7 +561,7 @@
             $('#cleave-rg').blur(function () {
                 var rg = $(this).val();
                 $.ajax({
-                    url: '@Url.Action("ValidarRG", "Cadastros")',
+                    url: '@Url.Action("ValidarRG", "Validacoes")',
                     type: 'POST',
                     data: { _rg: rg },
                     success: function (result) {
@@ -586,7 +586,7 @@
             $('#email1').blur(function () {
                 var email = $(this).val();
                 $.ajax({
-                    url: '@Url.Action("ValidarEmail", "Cadastros")',
+                    url: '@Url.Action("ValidarEmail", "Validacoes")',
                     type: 'POST',
                     data: { _email: email },
                     success: function (result) {
@@ -611,7 +611,7 @@
             $('#email2').blur(function () {
                 var email = $(this).val();
                 $.ajax({
-                    url: '@Url.Action("ValidarEmail", "Cadastros")',
+                    url: '@Url.Action("ValidarEmail", "Validacoes")',
                     type: 'POST',
                     data: { _email: email },
                     success: function (result) {
@@ -636,7 +636,7 @@
             $('#cleave-cnpj').blur(function () {
                 var cnpj = $(this).val();
                 $.ajax({
-                    url: '@Url.Action("ValidarCNPJ", "Cadastros")',
+                    url: '@Url.Action("ValidarCNPJ", "Validacoes")',
                     type: 'POST',
                     data: { _cnpj: cnpj },
                     success: function (result) {
@@ -661,7 +661,7 @@
             $('#cleave-cnpj').blur(function () {
                 var cnpj = $(this).val();
                 $.ajax({
-                    url: '@Url.Action("VerificacaoExistenciaCNPJ", "Cadastros")',
+                    url: '@Url.Action("VerificacaoExistenciaCNPJ", "Validacoes")',
                     type: 'POST',
                     data: { _cnpj: cnpj },
                     success: function (result) {
